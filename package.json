@@ -1,0 +1,19 @@
+{
+  "name": "complete-player-hub",
+  "version": "1.0.0",
+  "description": "The Complete Player Hub (CPH) — Premier Youth Soccer Development Platform",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve . -l 5175",
+    "build": "echo 'Static build complete'",
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "cph",
+    "soccer",
+    "youth-sports",
+    "complete-player-hub"
+  ],
+  "author": "Complete Player Hub & M3SH Intelligence",
+  "license": "UNLICENSED"
+}

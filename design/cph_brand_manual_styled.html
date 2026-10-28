@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Complete Player Hub (CPH): Brand Identity Manual</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+        
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        html, body {
+            background-color: #FFFFFF;
+            color: #1E293B;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-size: 10.5pt;
+            font-weight: 300;
+            line-height: 1.8;
+            letter-spacing: 0.01em;
+        }
+
+        /* Page containers for A4 page break pagination */
+        .page {
+            width: 210mm;
+            height: 297mm;
+            padding: 35mm 30mm 30mm 30mm;
+            box-sizing: border-box;
+            background-color: #FFFFFF;
+            position: relative;
+            page-break-after: always;
+            overflow: hidden;
+        }
+
+        .page-content {
+            width: 100%;
+            height: calc(100% - 20mm);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        /* Extremely minimal Header */
+        .page-header {
+            position: absolute;
+            top: 20mm;
+            left: 30mm;
+            right: 30mm;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .m3sh-logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            font-size: 9pt;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #0F172A;
+        }
+
+        .page-header-right {
+            font-size: 8pt;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 400;
+        }
+
+        /* Extremely minimal Footer */
+        .page-footer {
+            position: absolute;
+            bottom: 20mm;
+            left: 30mm;
+            right: 30mm;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 8pt;
+            color: #94A3B8;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        /* Cover Page Styling */
+        .cover-accent-bar {
+            width: 60px;
+            height: 2px;
+            background-color: #0F172A;
+            margin-bottom: 40px;
+        }
+
+        .cover-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 300;
+            color: #0F172A;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            font-size: 42pt;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .cover-subtitle {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            color: #64748B;
+            line-height: 1.5;
+            font-size: 14pt;
+            margin-top: 20px;
+            margin-bottom: 0;
+            letter-spacing: 0.02em;
+        }
+
+        .cover-metadata {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 80px;
+            width: 100%;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 7pt;
+            font-weight: 600;
+            color: #94A3B8;
+            letter-spacing: 0.15em;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .meta-value {
+            font-size: 9.5pt;
+            line-height: 1.6;
+            color: #334155;
+            font-weight: 300;
+        }
+
+        .meta-value strong {
+            font-weight: 500;
+            color: #0F172A;
+        }
+
+        .badge-status {
+            display: inline-block;
+            border: 1px solid #E2E8F0;
+            color: #475569;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 7.5pt;
+            font-weight: 500;
+            margin-top: 4px;
+            width: fit-content;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* Typography & Content Layouts */
+        h1, h2, h3 {
+            color: #0F172A;
+            margin-top: 0;
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24pt;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            margin-bottom: 30px;
+        }
+
+        h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 12pt;
+            font-weight: 500;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            letter-spacing: 0.02em;
+        }
+
+        p {
+            margin: 0 0 20px 0;
+            color: #475569;
+        }
+
+        ul {
+            margin: 0 0 25px 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 15px;
+            color: #475569;
+        }
+
+        li strong {
+            font-weight: 500;
+            color: #0F172A;
+        }
+
+        /* Color Swatches Grid */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .color-card {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .color-swatch {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border: 1px solid #F1F5F9;
+        }
+
+        .color-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .color-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12pt;
+            font-weight: 500;
+            color: #0F172A;
+            letter-spacing: -0.01em;
+        }
+
+        .color-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8.5pt;
+            color: #64748B;
+            font-weight: 300;
+        }
+
+        /* Fonts Table */
+        .font-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+
+        .font-table th, .font-table td {
+            text-align: left;
+            padding: 20px 0;
+            border-bottom: 1px solid #F1F5F9;
+        }
+
+        .font-table th {
+            color: #94A3B8;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 8pt;
+            letter-spacing: 0.1em;
+        }
+
+        .font-table td {
+            color: #475569;
+            font-size: 10pt;
+        }
+
+        .font-table td strong {
+            font-weight: 500;
+            color: #0F172A;
+        }
+
+        /* Image and Logo Placement Containers - Stripped of borders */
+        .logo-display-box {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .logo-display-img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        .logo-display-img-large {
+            max-width: 320px;
+            height: auto;
+        }
+
+        .logo-container-dark {
+            background-color: #0B0F19;
+            padding: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 20px 0;
+        }
+
+        .logo-container-light {
+            background-color: #FFFFFF;
+            padding: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 20px 0;
+        }
+
+        .logo-box-half {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        /* CSS filters to generate monochrome logos from solid-background images */
+        .filter-white {
+            filter: grayscale(1) contrast(5) invert(1);
+            mix-blend-mode: screen;
+        }
+
+        .filter-black {
+            filter: grayscale(1) contrast(5);
+            mix-blend-mode: multiply;
+        }
+
+        .clear-space-box {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        /* Elegant guidelines instead of dashed borders */
+        .clear-space-box::before {
+            content: '';
+            position: absolute;
+            top: 10px; bottom: 10px; left: 10px; right: 10px;
+            border: 1px solid #E2E8F0;
+        }
+
+        .clear-space-label {
+            position: absolute;
+            font-size: 7.5pt;
+            font-family: 'JetBrains Mono', monospace;
+            color: #94A3B8;
+            background-color: #FFFFFF;
+            padding: 2px 8px;
+        }
+
+        .cs-top { top: 0; }
+        .cs-bottom { bottom: 0; }
+        .cs-left { left: -10px; transform: rotate(-90deg); }
+        .cs-right { right: -10px; transform: rotate(90deg); }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 30px 0;
+        }
+
+        .rule-card {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .rule-do {
+        }
+
+        .rule-dont {
+        }
+
+        .rule-title-do {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #0F172A;
+            font-weight: 500;
+            font-size: 11pt;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .rule-title-do::before {
+            content: '✓';
+            color: #065F46;
+        }
+
+        .rule-title-dont {
+            font-family: 'Space Grotesk', sans-serif;
+            color: #0F172A;
+            font-weight: 500;
+            font-size: 11pt;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .rule-title-dont::before {
+            content: '✗';
+            color: #991B1B;
+        }
+
+        /* Alignment utility */
+        .center-content {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ─── PAGE 1: COVER PAGE ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">Brand Guidelines</span>
+        </div>
+        
+        <div class="page-content" style="justify-content: center; height: 100%; padding-bottom: 20mm; align-items: center; text-align: center;">
+            <div style="margin-bottom: 30px;">
+                <img src="cph_logo_render.png" class="logo-display-img-large" alt="CPH Logo">
+            </div>
+            <div class="cover-accent-bar" style="margin: 0 auto 20px auto;"></div>
+            <div>
+                <h1 class="cover-title">COMPLETE PLAYER HUB</h1>
+                <p class="cover-subtitle">Brand Identity Manual & Visual Guidelines</p>
+            </div>
+            
+            <div class="cover-metadata" style="text-align: left;">
+                <div class="meta-item">
+                    <span class="meta-label">PREPARED BY</span>
+                    <span class="meta-value">Kaustubh Roy<br><strong>Founder, M3SH Intelligence</strong><br>kaushtubhroy07@gmail.com<br>kaushtubhroy@m3sh.in</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">PREPARED FOR</span>
+                    <span class="meta-value">Salomon Salinas<br><strong>Co-Founder, CPH</strong><br>salomon.s.salinas@gmail.com</span>
+                </div>
+                <div class="meta-item" style="margin-top: 15px;">
+                    <span class="meta-label">DATE OF RELEASE</span>
+                    <span class="meta-value">June 2026</span>
+                </div>
+                <div class="meta-item" style="margin-top: 15px;">
+                    <span class="meta-label">DOCUMENT STATUS</span>
+                    <span class="badge-status">APPROVED REFERENCE</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>© 2026 M3SH Intelligence. All rights reserved.</span>
+            <span>Page 1 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 2: CORE VALUES ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">Core Values</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center;">
+            <h2>Core Values</h2>
+            <p>We strictly stand by the 3 C’s of CPH:</p>
+            
+            <h3 style="margin-top: 20px;">Curated (Quality & Exclusivity)</h3>
+            <p>We are committed to achieve excellence in everything we do - maintaining strict vetting and onboarding standards for coaches and academies. We limit our pre-launch rollout to a core founding group of 100 select providers.</p>
+            
+            <h3>Connected (Trust & Agency)</h3>
+            <p>We place special emphasis on bypassing administrative friction and operational hurdles, allowing parent and athlete communities to connect and transact directly with coaches.</p>
+            
+            <h3>Compliant (Privacy & Security)</h3>
+            <p>We craft designs and backend architectures thoughtfully in order to promote absolute database security, strict zero-PII storage compliance, and direct secure database access.</p>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 2 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 3: MISSION & VISION ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">Mission & Vision</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center;">
+            <h2>Mission</h2>
+            <p style="font-size: 12pt; line-height: 1.8; color: #0F172A; font-weight: 400; border-left: 3px solid #00E5FF; padding-left: 15px;">
+                Providing a secure, trusted, and highly curated space for elite youth sports trainers to scale their booking yield and connect directly with parent/athlete communities.
+            </p>
+            
+            <h2 style="margin-top: 40px;">Vision</h2>
+            <p style="font-size: 12pt; line-height: 1.8; color: #0F172A; font-weight: 400; border-left: 3px solid #64748B; padding-left: 15px;">
+                Striving to elevate the standards of youth sports coaching by putting administrative operations on autopilot, allowing coaches to focus entirely on training and mentorship.
+            </p>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 3 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 4: THE LOGO ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">The Logo</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center; align-items: center; text-align: center;">
+            <h2>The Logo</h2>
+            <div class="logo-display-box" style="width: 100%; box-sizing: border-box; height: 180mm;">
+                <img src="cph_logo_render.png" class="logo-display-img-large" alt="CPH Logo">
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 4 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 5: LOGO CONCEPT ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">Logo Concept</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center;">
+            <h2>Logo Concept</h2>
+            <p>The logo shows a clean geometric hub integrated within the structural lines of "CPH". The form depicts dynamism and connection, and the colors represent the tech-athletic focus of the brand.</p>
+            
+            <div style="margin: 20px 0; text-align: center;">
+                <img src="cph_logo_render.png" style="max-width: 120px; height: auto;" alt="Logo Concept Icon">
+            </div>
+
+            <p style="margin-top: 20px;">The sports marketplace will be used by trainers, parent groups, and youth athletes of varying backgrounds, and this logo aims to capture that diversity and energy in a singular, cohesive hub mark. The ascending lines symbolize peak performance and progressive development.</p>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 5 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 6: PRIMARY COLORS ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">Primary Colors</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center;">
+            <h2>Primary Colors</h2>
+            <p>Our colors represent CPH's tech-athletic heritage. They must be used exactly as defined below to maintain visual consistency:</p>
+
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-swatch" style="background-color: #00E5FF;"></div>
+                    <div class="color-info">
+                        <span class="color-name">M3SH Neon Cyan</span>
+                        <span class="color-val">#00E5FF</span>
+                        <span class="color-val">RGB: 0, 229, 255</span>
+                        <span class="color-val">CMYK: 70% 0% 0% 0%</span>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background-color: #0B0F19;"></div>
+                    <div class="color-info">
+                        <span class="color-name">GTM Dark Slate</span>
+                        <span class="color-val">#0B0F19</span>
+                        <span class="color-val">RGB: 11, 15, 25</span>
+                        <span class="color-val">CMYK: 92% 78% 56% 70%</span>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background-color: #FFFFFF; border: 2px solid #94A3B8;"></div>
+                    <div class="color-info">
+                        <span class="color-name">CPH Elite White</span>
+                        <span class="color-val">#FFFFFF</span>
+                        <span class="color-val">RGB: 255, 255, 255</span>
+                        <span class="color-val">CMYK: 0% 0% 0% 0%</span>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background-color: #64748B;"></div>
+                    <div class="color-info">
+                        <span class="color-name">Steel Gray</span>
+                        <span class="color-val">#64748B</span>
+                        <span class="color-val">RGB: 100, 116, 139</span>
+                        <span class="color-val">CMYK: 54% 41% 32% 5%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 6 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 7: THE GRADIENT ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">The Gradient</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center;">
+            <h2>The Gradient</h2>
+            <p>The gradient is a huge part of the visual language of the brand and we plan to use it everywhere on the website and digital collaterals.</p>
+            
+            <div class="logo-display-box" style="background: linear-gradient(135deg, #FFFFFF 0%, #00E5FF 100%); height: 80px; border: 1px solid #E2E8F0; margin: 30px 0;">
+                <span style="font-weight: 600; color: #0F172A; font-size: 11pt; letter-spacing: 0.05em;">CPH BRAND GRADIENT</span>
+            </div>
+
+            <p style="margin-top: 20px;">The places where the gradient isn’t possible, the primary colors (such as GTM Dark Slate or Neon Cyan) will be given preference to ensure readability and structural presence.</p>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 7 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 8: THE TAGLINE ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">The Tagline</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center; align-items: center; text-align: center;">
+            <h2>The Tagline</h2>
+            <div style="margin: 40px 0; padding: 30px; border-top: 1px solid #E2E8F0; border-bottom: 1px solid #E2E8F0; width: 100%;">
+                <h1 style="font-size: 24pt; font-weight: 200; color: #0F172A; letter-spacing: 0.02em; line-height: 1.4; margin: 0;">
+                    Trust the Training.<br>
+                    <strong style="font-weight: 700; color: #008394;">Own the Game.</strong>
+                </h1>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 8 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 9: TAGLINE APPLICATION ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">Tagline Application</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center; align-items: center; text-align: center;">
+            <h2>Tagline Application</h2>
+            <p style="text-align: left;">The tagline should be locked up beneath the CPH wordmark using high letter spacing, or placed as a standalone visual element on marketing material.</p>
+            
+            <div class="logo-display-box" style="width: 100%; box-sizing: border-box; padding: 30px;">
+                <img src="cph_logo_render.png" class="logo-display-img" alt="CPH Logo">
+                <div style="font-family: 'Poppins', sans-serif; font-size: 8.5pt; font-weight: 300; letter-spacing: 0.18em; text-transform: uppercase; color: #64748B; margin-top: 15px;">
+                    Trust the Training. Own the Game.
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 9 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 10: TYPEFACE - LOGOTYPE ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">Logotype Typeface</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center;">
+            <h2>Typeface: Logotype</h2>
+            <p>The wordmark logotype text "CPH" must be set in one of the approved options to maintain structural harmony:</p>
+
+            <table class="font-table" style="margin-top: 20px;">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Font Name</th>
+                        <th style="width: 35%;">Wordmark Style</th>
+                        <th style="width: 35%;">Visual Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Space Grotesk</strong> (Rec.)</td>
+                        <td style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 14pt; letter-spacing: 0.05em; color: #0F172A;">CPH</td>
+                        <td>Modern geometric sans-serif projecting technological excellence.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Montserrat</strong></td>
+                        <td style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 13pt; text-transform: uppercase; color: #0F172A;">CPH</td>
+                        <td>Classic geometric structure projecting stability and trust.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Outfit</strong></td>
+                        <td style="font-family: 'Poppins', sans-serif; font-weight: 300; font-size: 14pt; letter-spacing: 0.1em; color: #0F172A;">CPH</td>
+                        <td>Sleek curves projecting premium quality and accessibility.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 10 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 11: TYPEFACE - SITE & APP ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">Application Typeface</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center;">
+            <h2>Typeface: Site & App</h2>
+            <p>Poppins will be used as the primary typeface on site and in app to ensure maximum legibility and visual elegance.</p>
+            
+            <div style="background-color: #F8FAFC; border: 1px solid #E2E8F0; padding: 20px; border-radius: 8px; margin: 15px 0;">
+                <span style="font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 12pt; color: #0F172A; display: block; margin-bottom: 5px;">Poppins Regular & Light</span>
+                <span style="font-family: 'Poppins', sans-serif; font-weight: 300; font-size: 9.5pt; color: #475569; display: block; line-height: 1.6;">
+                    ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>
+                    abcdefghijklmnopqrstuvwxyz<br>
+                    1234567890 @#$%&amp;
+                </span>
+            </div>
+
+            <p style="margin-top: 15px;">For data-heavy layouts, pricing grids, and coordinate telemetry, JetBrains Mono is the secondary monospace font of choice.</p>
+
+            <div style="background-color: #F8FAFC; border: 1px solid #E2E8F0; padding: 20px; border-radius: 8px; margin: 15px 0;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 11pt; color: #0F172A; display: block; margin-bottom: 5px;">JetBrains Mono</span>
+                <span style="font-family: 'JetBrains Mono', monospace; font-weight: 400; font-size: 9pt; color: #475569; display: block; line-height: 1.6;">
+                    ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>
+                    abcdefghijklmnopqrstuvwxyz<br>
+                    1234567890 @#$%&amp;
+                </span>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 11 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 12: LOGO SYMBOL ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">Logo Symbol</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center;">
+            <h2>Logo Symbol</h2>
+            <p>The CPH logo symbol can be used independently to represent the brand without the wordmark text. It should however be used only on high-contrast white or solid black/slate backgrounds.</p>
+            
+            <div class="logo-box-half">
+                <div class="logo-container-light">
+                    <img src="cph_logo_render.png" class="logo-display-img filter-black" alt="Black Symbol Only">
+                </div>
+                <div class="logo-container-dark">
+                    <img src="cph_logo_render.png" class="logo-display-img filter-white" alt="White Symbol Only">
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 12 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 13: SPACE AROUND ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">Breathing Space</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center; align-items: center; text-align: center;">
+            <h2>Space Around</h2>
+            <p style="text-align: left; margin-bottom: 20px;">Always leave sufficient breathing space around the logo and symbol and never crowd it. The minimum clear space must be equal to the height of the letter "C" in the wordmark.</p>
+            
+            <div class="logo-display-box" style="width: 100%; box-sizing: border-box;">
+                <div class="clear-space-box">
+                    <span class="clear-space-label cs-top">CLEAR SPACE (C)</span>
+                    <span class="clear-space-label cs-bottom">CLEAR SPACE (C)</span>
+                    <span class="clear-space-label cs-left">C</span>
+                    <span class="clear-space-label cs-right">C</span>
+                    <img src="cph_logo_render.png" class="logo-display-img" alt="Logo clear space representation">
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 13 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 14: ALTERNATE LOGOS ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">Alternate Logos</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center;">
+            <h2>Alternate Logos</h2>
+            <p>The solid black and solid white monochrome versions are acceptable to be used when the brand gradient or primary color scheme isn't feasible.</p>
+            
+            <div class="logo-box-half" style="margin-top: 20px;">
+                <div class="logo-container-light">
+                    <img src="cph_logo_render.png" class="logo-display-img filter-black" alt="Monochrome Black Logo">
+                </div>
+                <div class="logo-container-dark">
+                    <img src="cph_logo_render.png" class="logo-display-img filter-white" alt="Monochrome White Logo">
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 14 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 15: LOGO APPLICATION ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">Logo Application</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center;">
+            <h2>Logo Application</h2>
+            <p>The monochrome white logo and simple symbol should be used on photos. Ensure the logo is placed in high-contrast areas of the image to guarantee readability.</p>
+            
+            <div class="logo-container-dark" style="height: 180px; position: relative; overflow: hidden; background: linear-gradient(135deg, #0B0F19 0%, #334155 100%);">
+                <!-- Simulated photo container -->
+                <img src="cph_logo_render.png" class="logo-display-img filter-white" style="position: relative; z-index: 10;" alt="White logo on dark photography background">
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 15 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 16: BRAND VOICE & PERSONA ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">Section 1.1: Persona</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center;">
+            <h2>Section 1.1: Brand Voice & Persona</h2>
+            <p>Our brand voice represents elite athletics coupled with data security. It is structured around four pillars:</p>
+            
+            <h3>1. Vetted & Elite</h3>
+            <p>All copies must highlight high standards, curating select athletic trainers and professional cohort benchmarks.</p>
+            
+            <h3>2. Direct & Frictionless</h3>
+            <p>We avoid complex operational overhead. The focus is on connecting athlete parents directly to trainers.</p>
+            
+            <h3>3. Security-First</h3>
+            <p>We reassure users about direct private databases, zero PII retention, and complete backend control.</p>
+
+            <h3>4. Athletic Precision</h3>
+            <p>Our message is performance-driven and focused. Trust the training, own the game.</p>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 16 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 17: CHATBOT WIDGET STYLE ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">Section 1.2: Chatbot</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center;">
+            <h2>Section 1.2: Chatbot Widget Branding</h2>
+            <p>The chatbot acts as the "Interactive Tour Guide" for pre-launch users. Its design reflects the CPH identity guidelines:</p>
+            
+            <h3>Floating Trigger Button</h3>
+            <p>Positioned bottom-right of the screen. Utilizes the CPH gradient text lockup and Neon Cyan glow effect.</p>
+            
+            <h3>Chat Window Styling</h3>
+            <ul>
+                <li><strong>Background:</strong> Glassmorphic design using backdrop-blur filter on white background (light theme).</li>
+                <li><strong>Headers:</strong> Slate-900 background with Neon Cyan logo emblem.</li>
+                <li><strong>Typography:</strong> Poppins Light (300) for incoming text, Poppins Medium (500) for user controls.</li>
+            </ul>
+
+            <h3>Lead Onboarding Flow</h3>
+            <p>Conversations must guide users organically to capture waitlist information (Name, Email, Mobile, Location, and User Role).</p>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 17 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 18: LOGO SIZE (PRINT) ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">Print Sizes</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center; align-items: center; text-align: center;">
+            <h2>Logo Size</h2>
+            <p style="text-align: left; margin-bottom: 20px;">The smallest the logo should be represented in print media is defined below. Always preserve structural ratios:</p>
+            
+            <div class="logo-display-box" style="width: 100%; box-sizing: border-box; gap: 30px;">
+                <div>
+                    <span style="font-size: 8pt; color: #64748B; display: block; margin-bottom: 5px;">Minimum Logo Mark Only (1.0 inch)</span>
+                    <img src="cph_logo_render.png" style="width: 1.0in; height: auto;" alt="Minimum Print 1.0 inch">
+                </div>
+                <div>
+                    <span style="font-size: 8pt; color: #64748B; display: block; margin-bottom: 5px;">Minimum Logo Symbol Only (0.3 inch)</span>
+                    <img src="cph_logo_render.png" style="width: 0.3in; height: auto;" alt="Minimum Print 0.3 inch">
+                </div>
+                <div>
+                    <span style="font-size: 8pt; color: #64748B; display: block; margin-bottom: 5px;">Minimum Brand Wordmark Only (0.5 inch)</span>
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 14pt; color: #0F172A; border: 1px solid #E2E8F0; padding: 5px 20px; width: 0.5in; margin: 0 auto;">CPH</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 18 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 19: LOGO SIZE (SCREEN) ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">Screen Sizes</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center; align-items: center; text-align: center;">
+            <h2>Logo Size</h2>
+            <p style="text-align: left; margin-bottom: 20px;">The smallest the logo should be represented on screen is defined below. Always preserve resolution density:</p>
+            
+            <div class="logo-display-box" style="width: 100%; box-sizing: border-box; gap: 30px;">
+                <div>
+                    <span style="font-size: 8pt; color: #64748B; display: block; margin-bottom: 5px;">Minimum Logo Mark Only (100px)</span>
+                    <img src="cph_logo_render.png" style="width: 100px; height: auto;" alt="Minimum Screen 100px">
+                </div>
+                <div>
+                    <span style="font-size: 8pt; color: #64748B; display: block; margin-bottom: 5px;">Minimum Logo Symbol Only (60px)</span>
+                    <img src="cph_logo_render.png" style="width: 60px; height: auto;" alt="Minimum Screen 60px">
+                </div>
+                <div>
+                    <span style="font-size: 8pt; color: #64748B; display: block; margin-bottom: 5px;">Minimum Brand Wordmark Only (32px)</span>
+                    <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 10pt; color: #0F172A; border: 1px solid #E2E8F0; padding: 2px 10px; width: 32px; margin: 0 auto; text-align: center;">CPH</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 19 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 20: DO'S AND DON'TS ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">Usage Rules 1</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center;">
+            <h2>Do’s and Don’ts</h2>
+            <p>The logo represents the whole brand and the company. Always maintain certain visual standards to prevent brand erosion:</p>
+            
+            <div class="rules-grid">
+                <div class="rule-card rule-do">
+                    <span class="rule-title-do">✓ Approved Proportions</span>
+                    <p style="font-size: 8.5pt; color: #065F46; margin: 0;">Always maintain standard structural proportions and scale values of the logo.</p>
+                    <div style="text-align: center; margin-top: 10px;">
+                        <img src="cph_logo_render.png" style="width: 90px; height: auto;" alt="Do Scale">
+                    </div>
+                </div>
+                <div class="rule-card rule-dont">
+                    <span class="rule-title-dont">✗ Never Distort or Rotate</span>
+                    <p style="font-size: 8.5pt; color: #991B1B; margin: 0;">Never stretch or play with proportions. Never tilt/rotate/flip the logo.</p>
+                    <div style="text-align: center; margin-top: 10px; display: flex; justify-content: space-around; align-items: center;">
+                        <img src="cph_logo_render.png" style="width: 50px; height: 35px; transform: skewX(20deg);" alt="Don't Distort">
+                        <img src="cph_logo_render.png" style="width: 50px; height: auto; transform: rotate(45deg);" alt="Don't Rotate">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 20 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 21: DO'S AND DON'TS ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">Usage Rules 2</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center;">
+            <h2>Do’s and Don’ts</h2>
+            <p>Maintain clean layouts and font properties. Avoid structural modifications:</p>
+            
+            <div class="rules-grid">
+                <div class="rule-card rule-do">
+                    <span class="rule-title-do">✓ Standard Colors & Typefaces</span>
+                    <p style="font-size: 8.5pt; color: #065F46; margin: 0;">Use the specified Slate/Cyan colors and the designated Poppins/Space Grotesk typography.</p>
+                    <div style="text-align: center; margin-top: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16pt; color: #0F172A;">
+                        CPH
+                    </div>
+                </div>
+                <div class="rule-card rule-dont">
+                    <span class="rule-title-dont">✗ Unapproved Elements</span>
+                    <p style="font-size: 8.5pt; color: #991B1B; margin: 0;">Don’t change the gradient colors, don't change the typeface, and don't make patterns out of the logo symbol.</p>
+                    <div style="text-align: center; margin-top: 10px; font-family: 'Times New Roman', serif; font-style: italic; font-weight: bold; font-size: 16pt; color: #DC2626;">
+                        CPH
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 21 of 22</span>
+        </div>
+    </div>
+
+    <!-- ─── PAGE 22: CLOSING NOTE ─── -->
+    <div class="page">
+        <div class="page-header">
+            <span class="m3sh-logo-text">M3SH</span>
+            <span class="page-header-right">Closing</span>
+        </div>
+
+        <div class="page-content" style="justify-content: center; align-items: center; text-align: center;">
+            <h2>Closing Note</h2>
+            <p style="margin-bottom: 30px;">The logo is created with a lot of love and consideration and hence we would really appreciate it if it is used in a way it is supposed to be! You can have fun with the logo as long as it doesn’t go against this manual.</p>
+            
+            <div class="cover-metadata" style="text-align: left; width: 100%;">
+                <div class="meta-item">
+                    <span class="meta-label">BRAND CUSTODIAN</span>
+                    <span class="meta-value">Kaustubh Roy<br>kaushtubhroy07@gmail.com<br>kaushtubhroy@m3sh.in</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">PROJECT CO-FOUNDER</span>
+                    <span class="meta-value">Salomon Salinas<br>salomon.s.salinas@gmail.com</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <span>CPH Brand Manual (Complete Player Hub)</span>
+            <span>Page 22 of 22</span>
+        </div>
+    </div>
+
+</body>
+</html>

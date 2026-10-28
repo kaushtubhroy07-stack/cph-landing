@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html class="dark scroll-smooth" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Complete Player Hub (CPH) | Youth Soccer Development Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,wght@0,300..900;1,300..900&family=JetBrains+Mono:wght@400;700&family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+  // Complete Player Hub — Supabase Configuration
+  // DevOps: Provide your CPH Supabase project URL and anon public key below or via environment
+  window.CPH_CONFIG = window.CPH_CONFIG || {
+    supabaseUrl: window.CPH_SUPABASE_URL || "",
+    supabaseAnonKey: window.CPH_SUPABASE_ANON_KEY || ""
+  };
+</script>
+<script id="tailwind-config">
+try{
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "primary": "#ff5a00",
+                "surface-tint": "#ff5a00",
+                "background": "#000000",
+                "on-background": "#dae2fd",
+                "glass-fill": "rgba(11, 15, 25, 0.6)",
+                "surface-stroke": "rgba(255, 255, 255, 0.08)"
+        },
+        "fontFamily": {
+                "headline": ["Bebas Neue", "sans-serif"],
+                "body": ["Inter", "sans-serif"],
+                "poppins": ["Poppins", "sans-serif"],
+                "mono": ["JetBrains Mono", "monospace"]
+        }
+      }
+    }
+  }
+}catch(_e){}
+</script>
+<style>
+.text-gradient {
+  background: linear-gradient(135deg, #ff8c00 0%, #ff5a00 50%, #ff2a00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+  padding-right: 0.15em;
+  overflow: visible;
+}
+
+.font-headline {
+  font-style: normal !important;
+  letter-spacing: 0.015em;
+}
+
+.magnetic-btn {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    will-change: transform;
+}
+
+.dot-grid {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+/* ─── CPH Ghost Guide / Digital Twin HUD Styling ─── */
+.guide-target {
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+}
+
+.guide-target-active {
+    box-shadow: 0 0 35px rgba(255, 90, 0, 0.45), 0 0 12px rgba(255, 90, 0, 0.7) !important;
+    border-color: rgba(255, 90, 0, 0.8) !important;
+}
+
+@keyframes soundwave {
+    0%, 100% { height: 4px; }
+    50% { height: 16px; }
+}
+
+.soundwave-bar {
+    animation: soundwave 1.2s ease-in-out infinite;
+}
+.soundwave-bar:nth-child(2) { animation-delay: 0.2s; }
+.soundwave-bar:nth-child(3) { animation-delay: 0.4s; }
+.soundwave-bar:nth-child(4) { animation-delay: 0.6s; }
+
+@keyframes radar-sweep {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.radar-sweep {
+    animation: radar-sweep 4s linear infinite;
+}
+</style>
+</head>
+<body class="text-white font-body min-h-screen flex flex-col relative overflow-x-hidden bg-black pt-16">
+
+<!-- POLISHED GLASSMORPHIC TOP NAVIGATION HEADER -->
+<header id="main-nav-header" class="fixed top-0 left-0 right-0 z-50 bg-black/75 backdrop-blur-xl border-b border-white/10 px-4 md:px-8 py-3.5 flex items-center justify-between transition-all pointer-events-auto shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
+    <a href="#" class="flex items-center gap-3 group">
+        <img src="./design/cph_logo_final.png" alt="CPH Logo" class="h-10 w-auto object-contain drop-shadow-[0_0_12px_rgba(255,90,0,0.5)] transition-transform group-hover:scale-105" />
+        <span class="text-white font-black text-xl font-poppins tracking-wider hidden sm:inline-block">CPH</span>
+    </a>
+    
+    <div class="flex items-center gap-3 sm:gap-6 text-xs md:text-sm font-medium">
+        <a href="https://thecompleteplayerhub.substack.com" target="_blank" rel="noopener noreferrer" class="text-white/80 hover:text-white transition-colors flex items-center gap-1.5 px-3 py-1.5 rounded-full hover:bg-white/10">
+            <span class="material-symbols-outlined text-base text-[#ff5a00]">rss_feed</span>
+            <span>CPH Substack</span>
+        </a>
+        <a href="#our-story" class="text-white/80 hover:text-white transition-colors hidden md:inline-block">Our Story</a>
+        <a href="#contact" class="text-white/80 hover:text-white transition-colors hidden sm:inline-block">Contact</a>
+        <a href="#waitlist" class="text-white/80 hover:text-white transition-colors">Login</a>
+        <a href="#device-segment" class="px-4 md:px-5 py-2 rounded-full bg-gradient-to-r from-[#ff5a00] to-[#ffa500] text-black font-bold hover:shadow-[0_0_20px_rgba(255,90,0,0.6)] transition-all magnetic-btn">Learn More</a>
+    </div>
+</header>
+
+<!-- Blueprint Dot Grid Background -->
+<div class="fixed inset-0 z-[-2] dot-grid pointer-events-none opacity-30"></div>
+
+<!-- PAINTBRUSH CANVAS (z-0 behind text) -->
+<canvas id="video-trail-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0 opacity-100 transition-opacity duration-500" style="filter: brightness(1.7) contrast(1.25) saturate(1.5);"></canvas>
+<video id="trail-video" src="./background-hover.mp4" loop muted playsinline class="hidden"></video>
+
+<main class="flex-grow relative z-10">
+
+<!-- HERO SECTION -->
+<section id="hero-segment" class="min-h-[90vh] py-16 px-4 md:px-8 relative z-10 flex flex-col items-center justify-center text-center overflow-hidden bg-black">
+    <video autoplay loop muted playsinline class="absolute inset-0 w-full h-full object-cover opacity-50 z-0 pointer-events-none">
+        <source src="./design/cph_background_video_v3.mp4" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black z-1 pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto w-full flex flex-col items-center relative z-20">
+        <div class="flex justify-center mb-6 select-none">
+            <img src="./design/cph_logo_final.png" alt="CPH Logo" class="h-28 md:h-36 w-auto object-contain drop-shadow-[0_0_30px_rgba(255,90,0,0.6)]" />
+        </div>
+        
+        <h1 class="text-white font-black uppercase tracking-normal text-5xl sm:text-7xl md:text-8xl max-w-5xl mb-6 leading-none select-none font-headline drop-shadow-2xl">
+            THE COMPLETE <span class="text-gradient">PLAYER HUB</span>
+        </h1>
+        
+        <p class="text-lg md:text-xl text-white/90 max-w-2xl mb-12 font-light leading-relaxed font-body drop-shadow-md">
+            Connecting DMV youth soccer families with a curated network of elite coaches, performance specialists, and training academies.
+        </p>
+
+        <!-- Search Bar with Guide Target -->
+        <form id="cph-hero-search-form" class="w-full max-w-2xl bg-white/[0.08] backdrop-blur-2xl border border-white/20 rounded-full p-2 pl-6 flex items-center justify-between shadow-[0_20px_50px_rgba(0,0,0,0.5)] hover:border-[#ff5a00]/50 focus-within:border-[#ff5a00] focus-within:shadow-[0_0_30px_rgba(255,90,0,0.3)] transition-all group guide-target"
+             data-guide-category="SEARCH & DISCOVERY"
+             data-guide-title="Intelligent Provider Matching"
+             data-guide-insight="Search curated technical coaches, training academies, physical therapists, sports psychologists, nutritionists, and college recruiting specialists servicing DC, Maryland, and Virginia."
+             data-guide-chips='["Search coaches & academies", "Speed & agility", "Physical therapy", "College & NIL"]'>
+            <div class="flex items-center gap-3 w-full">
+                <span class="material-symbols-outlined text-white/50 group-hover:text-[#ff5a00] group-focus-within:text-[#ff5a00] transition-colors">search</span>
+                <input id="cph-hero-search-input" type="text" name="q" aria-label="Search coaches, academies, and specialists" placeholder="Search technical coaching, speed & agility, physical therapy, college recruiting..." class="bg-transparent border-none outline-none text-white placeholder-white/50 text-xs sm:text-sm w-full font-light focus:ring-0" autocomplete="off" />
+            </div>
+            <button id="cph-hero-search-btn" type="submit" class="px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-white text-black font-semibold text-xs sm:text-sm tracking-wide uppercase hover:bg-[#ff5a00] hover:text-white transition-all shrink-0 magnetic-btn shadow-md">
+                Search
+            </button>
+        </form>
+    </div>
+</section>
+
+<!-- DEVICE ANIMATION SECTION -->
+<section id="device-segment" class="py-20 px-4 md:px-8 relative z-10 flex flex-col items-center justify-center overflow-hidden bg-transparent">
+    <div id="device-canvas" class="relative w-full max-w-5xl aspect-video rounded-[32px] overflow-hidden border border-white/20 shadow-[0_30px_100px_rgba(0,0,0,0.9)] bg-black group cursor-pointer guide-target"
+         data-guide-category="VIDEO // 360° ROADMAP"
+         data-guide-title="Youth Development In Action"
+         data-guide-insight="Watch how CPH bridges tactical game IQ, speed biomechanics, cognitive resilience, and nutrition for young athletes developing from grassroots to elite showcases."
+         data-guide-chips='["Watch intro video", "View 6 Pillars", "Ask CPH Guide"]'>
+        <video id="device-video" class="w-full h-full object-cover" autoplay loop muted playsinline>
+            <source src="./design/cph_intro_video_vertical.mp4" type="video/mp4">
+        </video>
+        <div class="absolute inset-0 dot-grid opacity-20 pointer-events-none z-10"></div>
+        
+        <div id="play-intro-cursor" class="absolute pointer-events-none transform -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity duration-300 z-40 bg-white/[0.08] backdrop-blur-xl border border-white/20 px-6 py-3 rounded-full text-white text-xs font-semibold tracking-wide flex items-center gap-2 shadow-[0_20px_50px_rgba(0,0,0,0.7)] whitespace-nowrap">
+            <span class="material-symbols-outlined text-sm text-[#ff5a00]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+            <span>Play Youth Development Intro</span>
+        </div>
+    </div>
+</section>
+
+<!-- CORE ECOSYSTEM SECTION -->
+<section class="paintbrush-segment py-28 px-4 md:px-8 relative z-10 overflow-hidden bg-transparent my-6" id="gateway">
+    <div class="max-w-7xl mx-auto relative z-20 flex flex-col items-center">
+        
+        <div class="text-center mb-16 max-w-3xl mx-auto">
+            <div class="text-xs font-mono text-[#ff5a00] uppercase tracking-[0.4em] mb-3 font-semibold">OUR CORE ECOSYSTEM</div>
+            <h2 class="text-4xl md:text-6xl text-white font-black uppercase tracking-normal mb-4 font-headline drop-shadow-lg">
+                DESIGNED FOR <span class="text-gradient">COMPLETE PLAYER GROWTH</span>
+            </h2>
+            <p class="text-base text-white/90 font-light leading-relaxed font-body drop-shadow-md">
+                CPH connects DMV youth soccer families with a curated network of individual coaches, performance specialists, and established training businesses—spanning all 6 development pillars plus college recruiting, NIL &amp; branding, and international opportunities.
+            </p>
+        </div>
+        
+        <!-- 3-Column Ecosystem Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
+            <!-- 01 // PROVIDER NETWORK -->
+            <div class="p-8 rounded-[28px] bg-white/[0.04] backdrop-blur-2xl border border-white/20 hover:border-[#ff5a00]/70 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between shadow-[0_20px_50px_rgba(0,0,0,0.7)] group guide-target"
+                 data-guide-category="NETWORK // COACHES & ACADEMIES"
+                 data-guide-title="Curated Coaches & Training Businesses"
+                 data-guide-insight="Explore individual coaches, performance specialists, and established businesses servicing the DMV in-person and virtually nationwide—with transparent credentials and flexible booking."
+                 data-guide-chips='["How booking works", "Founding Provider offer", "Ask CPH Guide"]'>
+                <div>
+                    <div class="flex items-center justify-between mb-6 border-b border-white/10 pb-3">
+                        <span class="text-[10px] font-mono tracking-wider text-[#ff5a00] uppercase font-semibold">01 // PROVIDER NETWORK</span>
+                    </div>
+                    <h4 class="text-white text-3xl font-black uppercase tracking-normal mb-3 font-headline leading-none mt-2">Coaches &amp; Academies</h4>
+                    <p class="text-white/85 text-sm leading-relaxed font-light font-body">
+                        Browse individual coaches, specialists, and training businesses servicing the DMV locally in-person and virtually nationwide. Review licenses, certifications, and training philosophies all in one place.
+                    </p>
+                </div>
+                <div class="flex items-center gap-2 mt-8 border-t border-white/10 pt-4">
+                    <span class="w-2 h-2 rounded-full bg-[#ff5a00] animate-pulse"></span>
+                    <span class="text-xs font-mono text-[#ff5a00] uppercase tracking-wider font-semibold">360° Curated Network</span>
+                </div>
+            </div>
+
+            <!-- 02 // PARENT PORTAL -->
+            <div class="p-8 rounded-[28px] bg-white/[0.04] backdrop-blur-2xl border border-white/20 hover:border-amber-400/70 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between shadow-[0_20px_50px_rgba(0,0,0,0.7)] group guide-target"
+                 data-guide-category="PORTAL // PARENTS"
+                 data-guide-title="Seamless Booking & Discovery"
+                 data-guide-insight="Book and pay individual coaches directly on CPH, or schedule discovery calls and connect directly with established training businesses and academies."
+                 data-guide-chips='["See parent features", "Book a coach", "How booking works"]'>
+                <div>
+                    <div class="flex items-center justify-between mb-6 border-b border-white/10 pb-3">
+                        <span class="text-[10px] font-mono tracking-wider text-amber-500 uppercase font-semibold">02 // PARENT PORTAL</span>
+                    </div>
+                    <h4 class="text-white text-3xl font-black uppercase tracking-normal mb-3 font-headline leading-none mt-2">Busy Parents</h4>
+                    <p class="text-white/85 text-sm leading-relaxed font-light font-body">
+                        Book and pay individual coaches directly on the platform, or schedule a discovery call and connect directly with established training academies—all from one unified family dashboard.
+                    </p>
+                </div>
+                <div class="flex items-center gap-2 mt-8 border-t border-white/10 pt-4">
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                    <span class="text-xs font-mono text-amber-500 uppercase tracking-wider font-semibold">Parent Portal</span>
+                </div>
+            </div>
+
+            <!-- 03 // RECRUITING & TOURS -->
+            <div class="p-8 rounded-[28px] bg-white/[0.04] backdrop-blur-2xl border border-white/20 hover:border-cyan-400/70 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between shadow-[0_20px_50px_rgba(0,0,0,0.7)] group guide-target"
+                 data-guide-category="PATHWAYS // RECRUITING & NIL"
+                 data-guide-title="Long-Term Player Pathway Acceleration"
+                 data-guide-insight="Beyond the 6 pillars: connect with college recruitment specialists, NIL & branding coaches, domestic showcases, futsal, and international tournament & training opportunities."
+                 data-guide-chips='["College recruiting guide", "NIL & branding", "International tours"]'>
+                <div>
+                    <div class="flex items-center justify-between mb-6 border-b border-white/10 pb-3">
+                        <span class="text-[10px] font-mono tracking-wider text-cyan-400 uppercase font-semibold">03 // RECRUITING, NIL &amp; TOURS</span>
+                    </div>
+                    <h4 class="text-white text-3xl font-black uppercase tracking-normal mb-3 font-headline leading-none mt-2">Grows with You</h4>
+                    <p class="text-white/85 text-sm leading-relaxed font-light font-body">
+                        Go beyond weekly training: connect with college recruitment specialists, NIL and branding coaches, high-tempo futsal, domestic showcases, and international tournament and training opportunities.
+                    </p>
+                </div>
+                <div class="flex items-center gap-2 mt-8 border-t border-white/10 pt-4">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                    <span class="text-xs font-mono text-cyan-400 uppercase tracking-wider font-semibold">Recruiting, NIL &amp; Global Tours</span>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+<!-- THE 6 PILLARS OF CPH -->
+<section class="paintbrush-segment py-24 px-4 md:px-8 relative z-10 bg-transparent" id="pillars">
+<div class="max-w-7xl mx-auto relative z-20">
+    <div class="text-center mb-16">
+        <div class="text-xs font-mono text-[#ff5a00] uppercase tracking-[0.4em] mb-3 font-semibold">COMPREHENSIVE FRAMEWORK</div>
+        <h2 class="text-5xl md:text-7xl text-white font-black uppercase tracking-normal mb-4 font-headline drop-shadow-lg">
+            THE <span class="text-gradient">6 PILLARS</span> OF CPH
+        </h2>
+        <p class="text-base text-white/90 max-w-3xl mx-auto font-light leading-relaxed font-body drop-shadow-md">
+            Our 6 pillars ensure excellence, structure, and 360° growth across technical, tactical, physical, mental, nutrition, and recovery development.
+        </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-20">
+        
+        <div class="bg-white/[0.04] backdrop-blur-2xl border border-white/20 hover:border-[#ff5a00]/60 rounded-[28px] p-8 transition-all duration-300 hover:-translate-y-1.5 group dot-grid shadow-[0_20px_50px_rgba(0,0,0,0.6)] guide-target"
+             data-guide-category="PILLAR 01 // TECHNICAL"
+             data-guide-title="Micro-Touch Technical Fluency"
+             data-guide-insight="Targets 1,200+ touches per hour under high-tempo pressure: directional first touches, weak-foot striking, tight-space dribbling, and clinical finishing."
+             data-guide-chips='["Find technical coach", "Finishing drills", "Ask about Pillar 1"]'>
+            <div class="w-14 h-14 rounded-2xl bg-[#ff5a00]/15 border border-[#ff5a00]/30 flex items-center justify-center mb-6 text-[#ff5a00] group-hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined text-3xl">sports_soccer</span>
+            </div>
+            <span class="text-[10px] font-mono text-[#ff5a00] uppercase tracking-widest block mb-2 font-semibold">PILLAR 01</span>
+            <h3 class="text-2xl font-black uppercase text-white tracking-normal mb-3 font-headline">1. Technical</h3>
+            <p class="text-sm text-white/85 font-light leading-relaxed font-body">
+                Ball mastery, first touch, passing accuracy, position-specific skills, and shooting and finishing with dedicated technical coaches and academies.
+            </p>
+        </div>
+
+        <div class="bg-white/[0.04] backdrop-blur-2xl border border-white/20 hover:border-cyan-400/60 rounded-[28px] p-8 transition-all duration-300 hover:-translate-y-1.5 group dot-grid shadow-[0_20px_50px_rgba(0,0,0,0.6)] guide-target"
+             data-guide-category="PILLAR 02 // TACTICAL"
+             data-guide-title="Cognitive Game Intelligence & Scanning"
+             data-guide-insight="Elevating field scanning frequency (targeting 0.5+ scans/sec) and understanding pressing triggers, space creation, and defensive shape under match pressure."
+             data-guide-chips='["Video analysis coaches", "Game IQ drills", "Ask about Pillar 2"]'>
+            <div class="w-14 h-14 rounded-2xl bg-cyan-500/15 border border-cyan-400/30 flex items-center justify-center mb-6 text-cyan-400 group-hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined text-3xl">psychology</span>
+            </div>
+            <span class="text-[10px] font-mono text-cyan-400 uppercase tracking-widest block mb-2 font-semibold">PILLAR 02</span>
+            <h3 class="text-2xl font-black uppercase text-white tracking-normal mb-3 font-headline">2. Tactical</h3>
+            <p class="text-sm text-white/85 font-light leading-relaxed font-body">
+                Game intelligence, video analysis, small sided games, off-the-ball movement, and defensive shape under match pressure.
+            </p>
+        </div>
+
+        <div class="bg-white/[0.04] backdrop-blur-2xl border border-white/20 hover:border-amber-400/60 rounded-[28px] p-8 transition-all duration-300 hover:-translate-y-1.5 group dot-grid shadow-[0_20px_50px_rgba(0,0,0,0.6)] guide-target"
+             data-guide-category="PILLAR 03 // PHYSICAL"
+             data-guide-title="Youth Biomechanics & Speed Mechanics"
+             data-guide-insight="Multi-directional deceleration, change-of-direction mechanics, sprint acceleration angles, and youth ACL injury risk reduction protocols."
+             data-guide-chips='["Speed & agility trainers", "Injury prevention", "Ask about Pillar 3"]'>
+            <div class="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center mb-6 text-amber-400 group-hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined text-3xl">bolt</span>
+            </div>
+            <span class="text-[10px] font-mono text-amber-400 uppercase tracking-widest block mb-2 font-semibold">PILLAR 03</span>
+            <h3 class="text-2xl font-black uppercase text-white tracking-normal mb-3 font-headline">3. Physical</h3>
+            <p class="text-sm text-white/85 font-light leading-relaxed font-body">
+                Speed, acceleration, multi-directional agility, strength, biomechanics, and athletic conditioning engineered specifically for youth athletes.
+            </p>
+        </div>
+
+        <div class="bg-white/[0.04] backdrop-blur-2xl border border-white/20 hover:border-purple-400/60 rounded-[28px] p-8 transition-all duration-300 hover:-translate-y-1.5 group dot-grid shadow-[0_20px_50px_rgba(0,0,0,0.6)] guide-target"
+             data-guide-category="PILLAR 04 // MENTAL IQ"
+             data-guide-title="Pre-Match Resilience & Tryout Composure"
+             data-guide-insight="Mitigating tryout anxiety, cognitive reset techniques after in-game mistakes, pre-match visualization rituals, and high-stakes penalty composure."
+             data-guide-chips='["Sports psychologists", "Confidence building", "Ask about Pillar 4"]'>
+            <div class="w-14 h-14 rounded-2xl bg-purple-500/15 border border-purple-400/30 flex items-center justify-center mb-6 text-purple-400 group-hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined text-3xl">self_improvement</span>
+            </div>
+            <span class="text-[10px] font-mono text-purple-400 uppercase tracking-widest block mb-2 font-semibold">PILLAR 04</span>
+            <h3 class="text-2xl font-black uppercase text-white tracking-normal mb-3 font-headline">4. Mental / Psychological</h3>
+            <p class="text-sm text-white/85 font-light leading-relaxed font-body">
+                Resilience, pre-match rituals, sports psychology, tryout confidence, cognitive focus, and handling high-stakes moments.
+            </p>
+        </div>
+
+        <div class="bg-white/[0.04] backdrop-blur-2xl border border-white/20 hover:border-emerald-400/60 rounded-[28px] p-8 transition-all duration-300 hover:-translate-y-1.5 group dot-grid shadow-[0_20px_50px_rgba(0,0,0,0.6)] guide-target"
+             data-guide-category="PILLAR 05 // NUTRITION"
+             data-guide-title="Matchday Fueling & Glycogen Replenishment"
+             data-guide-insight="Strategic carbohydrate timing (2h pre-match window), rapid glycogen recovery within 30 minutes post-match, and hydration protocols for multi-game tournament weekends."
+             data-guide-chips='["Youth meal plans", "Hydration rules", "Ask about Pillar 5"]'>
+            <div class="w-14 h-14 rounded-2xl bg-emerald-500/15 border border-emerald-400/30 flex items-center justify-center mb-6 text-emerald-400 group-hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined text-3xl">nutrition</span>
+            </div>
+            <span class="text-[10px] font-mono text-emerald-400 uppercase tracking-widest block mb-2 font-semibold">PILLAR 05</span>
+            <h3 class="text-2xl font-black uppercase text-white tracking-normal mb-3 font-headline">5. Nutrition</h3>
+            <p class="text-sm text-white/85 font-light leading-relaxed font-body">
+                Custom meal plans, matchday fueling, optimal hydration strategies, tournament nutrition, and habits for growing soccer players.
+            </p>
+        </div>
+
+        <div class="bg-white/[0.04] backdrop-blur-2xl border border-white/20 hover:border-rose-400/60 rounded-[28px] p-8 transition-all duration-300 hover:-translate-y-1.5 group dot-grid shadow-[0_20px_50px_rgba(0,0,0,0.6)] guide-target"
+             data-guide-category="PILLAR 06 // RECOVERY"
+             data-guide-title="Active Biological Regeneration"
+             data-guide-insight="Fascial mobility, post-match muscular flush, joint decompression, and sleep hygiene tracking. Rest is active biological construction, not downtime."
+             data-guide-chips='["Read sleep article", "Find PT & recovery", "Ask about Pillar 6"]'>
+            <div class="w-14 h-14 rounded-2xl bg-rose-500/15 border border-rose-400/30 flex items-center justify-center mb-6 text-rose-400 group-hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined text-3xl">healing</span>
+            </div>
+            <span class="text-[10px] font-mono text-rose-400 uppercase tracking-widest block mb-2 font-semibold">PILLAR 06</span>
+            <h3 class="text-2xl font-black uppercase text-white tracking-normal mb-3 font-headline">6. Recovery & Prevention</h3>
+            <p class="text-sm text-white/85 font-light leading-relaxed font-body">
+                Sports massage therapy, joint mobility, injury risk reduction, and post-match regeneration to sustain performance.
+            </p>
+        </div>
+
+    </div>
+</div>
+</section>
+
+<!-- BEYOND THE PILLARS: PATHWAYS & SPECIALIZED OPPORTUNITIES -->
+<section class="paintbrush-segment py-24 px-4 md:px-8 relative z-10 bg-transparent">
+    <div class="max-w-7xl mx-auto relative z-20">
+        <div class="text-center mb-16">
+            <div class="text-xs font-mono text-[#ff5a00] uppercase tracking-[0.4em] mb-3 font-semibold font-headline">PATHWAYS & SPECIALIZED OPPORTUNITIES</div>
+            <h2 class="text-5xl md:text-7xl text-white font-black uppercase tracking-normal mb-4 font-headline drop-shadow-lg">
+                EXPANDING YOUR <span class="text-gradient">ATHLETIC HORIZONS</span>
+            </h2>
+            <p class="text-base md:text-lg text-white/90 max-w-3xl mx-auto font-light leading-relaxed font-body drop-shadow-md">
+                Going beyond weekly training to provide youth athletes and families with clear roadmaps for recruiting, tournaments, futsal, and international exposure.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- 1. College Pathway Guidance -->
+            <div class="p-8 rounded-[28px] bg-white/[0.04] backdrop-blur-2xl border border-white/20 hover:border-cyan-400/60 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between shadow-xl group guide-target"
+                 data-guide-category="PATHWAY 01 // NCAA RECRUITING"
+                 data-guide-title="College Pathway & NCAA Guidance"
+                 data-guide-insight="Direct college coach communication playbooks, ECNL/Girls Academy/MLS NEXT showcase target lists, academic eligibility roadmaps, and recruiting profile optimization."
+                 data-guide-chips='["Recruiting roadmap", "Showcase prep", "Ask about college"]'>
+                <div>
+                    <div class="w-14 h-14 rounded-2xl bg-cyan-500/15 border border-cyan-400/30 text-cyan-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-3xl">school</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-cyan-400 uppercase tracking-widest block mb-2 font-semibold">PATHWAY 01</span>
+                    <h3 class="text-2xl font-black uppercase text-white tracking-normal mb-3 font-headline">College Pathway Guidance</h3>
+                    <p class="text-sm text-white/85 font-light leading-relaxed font-body">
+                        NCAA eligibility roadmaps, recruiting profile development, college coach communication strategies, and showcase event preparation.
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-white/10 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                    <span class="text-xs font-mono text-cyan-400 uppercase tracking-wider font-semibold">NCAA & College Recruitment</span>
+                </div>
+            </div>
+
+            <!-- 2. NIL & Branding -->
+            <div class="p-8 rounded-[28px] bg-white/[0.04] backdrop-blur-2xl border border-white/20 hover:border-amber-400/60 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between shadow-xl group guide-target"
+                 data-guide-category="PATHWAY 02 // NIL STRATEGY"
+                 data-guide-title="Name, Image & Likeness Compliance"
+                 data-guide-insight="Virginia, Maryland, and DC high school athletic association compliance, highlight reel curation, personal storytelling, and sponsor outreach strategy."
+                 data-guide-chips='["Highlight reel specs", "NIL rules by state", "Ask about NIL"]'>
+                <div>
+                    <div class="w-14 h-14 rounded-2xl bg-amber-500/15 border border-amber-400/30 text-amber-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-3xl">verified_user</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-amber-400 uppercase tracking-widest block mb-2 font-semibold">PATHWAY 02</span>
+                    <h3 class="text-2xl font-black uppercase text-white tracking-normal mb-3 font-headline">NIL & Branding</h3>
+                    <p class="text-sm text-white/85 font-light leading-relaxed font-body">
+                        Personal brand strategy, highlight video creation, social media compliance, and sponsor outreach for emerging student-athletes.
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-white/10 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                    <span class="text-xs font-mono text-amber-400 uppercase tracking-wider font-semibold">Name, Image & Likeness</span>
+                </div>
+            </div>
+
+            <!-- 3. Domestic Tournaments -->
+            <div class="p-8 rounded-[28px] bg-white/[0.04] backdrop-blur-2xl border border-white/20 hover:border-[#ff5a00]/60 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between shadow-xl group guide-target"
+                 data-guide-category="PATHWAY 03 // DOMESTIC SHOWCASES"
+                 data-guide-title="Showcases & Tournament Selection"
+                 data-guide-insight="Curated tournament selection, guest player matching, showcase bracket navigation, and college scout visibility across regional and national events."
+                 data-guide-chips='["Top showcases list", "Guest playing", "Ask about tournaments"]'>
+                <div>
+                    <div class="w-14 h-14 rounded-2xl bg-[#ff5a00]/15 border border-[#ff5a00]/30 text-[#ff5a00] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-3xl">emoji_events</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-[#ff5a00] uppercase tracking-widest block mb-2 font-semibold">PATHWAY 03</span>
+                    <h3 class="text-2xl font-black uppercase text-white tracking-normal mb-3 font-headline">Domestic Tournaments</h3>
+                    <p class="text-sm text-white/85 font-light leading-relaxed font-body">
+                        Access to premier regional and national showcases, tournament selection support, and elite competition opportunities across the US.
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-white/10 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-[#ff5a00]"></span>
+                    <span class="text-xs font-mono text-[#ff5a00] uppercase tracking-wider font-semibold">Regional & National Showcases</span>
+                </div>
+            </div>
+
+            <!-- 4. International Soccer Tournaments and Training -->
+            <div class="p-8 rounded-[28px] bg-white/[0.04] backdrop-blur-2xl border border-white/20 hover:border-purple-400/60 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between shadow-xl group guide-target"
+                 data-guide-category="PATHWAY 04 // GLOBAL IMMERSION"
+                 data-guide-title="European Academy Immersion & Tours"
+                 data-guide-insight="International friendly tours, Scandinavian and European academy immersion (e.g. Gothia Cup with FCNE) to experience global soccer tempo and culture."
+                 data-guide-chips='["Read Sweden tour story", "FCNE immersion", "Ask about international"]'>
+                <div>
+                    <div class="w-14 h-14 rounded-2xl bg-purple-500/15 border border-purple-400/30 text-purple-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-3xl">public</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-purple-400 uppercase tracking-widest block mb-2 font-semibold">PATHWAY 04</span>
+                    <h3 class="text-2xl font-black uppercase text-white tracking-normal mb-3 font-headline">International Soccer Tournaments & Training</h3>
+                    <p class="text-sm text-white/85 font-light leading-relaxed font-body">
+                        Overseas academy immersion programs, international friendly tours, European showcase tournaments, and global soccer culture exposure.
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-white/10 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+                    <span class="text-xs font-mono text-purple-400 uppercase tracking-wider font-semibold">Global Academy Immersion</span>
+                </div>
+            </div>
+
+            <!-- 5. Futsal -->
+            <div class="p-8 rounded-[28px] bg-white/[0.04] backdrop-blur-2xl border border-white/20 hover:border-emerald-400/60 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between shadow-xl group guide-target"
+                 data-guide-category="PATHWAY 05 // HIGH-TEMPO FUTSAL"
+                 data-guide-title="Tight-Space Futsal Agility"
+                 data-guide-insight="600% more ball touches per minute than 11v11 soccer. Rapid decision-making on low-bounce hard courts to accelerate footwork and off-season sharpness."
+                 data-guide-chips='["Winter futsal clinics", "Court agility", "Ask about futsal"]'>
+                <div>
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-500/15 border border-emerald-400/30 text-emerald-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-3xl">sports_soccer</span>
+                    </div>
+                    <span class="text-[10px] font-mono text-emerald-400 uppercase tracking-widest block mb-2 font-semibold">PATHWAY 05</span>
+                    <h3 class="text-2xl font-black uppercase text-white tracking-normal mb-3 font-headline">Futsal</h3>
+                    <p class="text-sm text-white/85 font-light leading-relaxed font-body">
+                        High-speed indoor futsal programs, court agility training, rapid decision-making, and tight-space ball control for off-season mastery.
+                    </p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-white/10 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    <span class="text-xs font-mono text-emerald-400 uppercase tracking-wider font-semibold">Indoor High-Tempo Training</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- OUR STORY SECTION -->
+<section class="paintbrush-segment py-24 px-4 md:px-8 relative z-10 bg-transparent" id="our-story">
+    <div class="max-w-6xl mx-auto relative z-20">
+        <div class="bg-white/[0.03] backdrop-blur-2xl border border-white/20 rounded-[36px] p-8 md:p-14 shadow-[0_30px_80px_rgba(0,0,0,0.85)] relative overflow-hidden guide-target"
+             data-guide-category="FOUNDERS // SOL & HEATHER"
+             data-guide-title="Built by DMV Soccer Parents"
+             data-guide-insight="Sol Salinas (ex-Division I player & youth coach) and Heather created CPH after experiencing the fragmented youth soccer system firsthand with their daughter Morgan."
+             data-guide-chips='["Read mom&#39;s journey", "Read dad&#39;s story", "Ask Sol a question"]'>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+                <div class="lg:col-span-5 relative">
+                    <div class="relative rounded-[28px] overflow-hidden border-2 border-white/20 shadow-2xl group">
+                        <img src="./design/owners.jpeg" alt="Sol and Heather Salinas - Co-Founders of CPH" class="w-full h-[380px] md:h-[440px] object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 right-6 text-white">
+                            <div class="text-xs font-mono text-[#ff5a00] uppercase font-bold tracking-widest mb-1">DMV Soccer Family</div>
+                            <h4 class="text-xl font-bold font-poppins">Sol & Heather Salinas</h4>
+                            <p class="text-xs text-white/70 font-light">Co-Founders, The Complete Player Hub</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#ff5a00]/15 border border-[#ff5a00]/30 text-xs font-mono text-[#ff5a00] uppercase tracking-widest font-semibold mb-4">
+                        <span class="w-2 h-2 rounded-full bg-[#ff5a00]"></span>
+                        <span>Family-Owned & Founded</span>
+                    </div>
+                    
+                    <h2 class="text-4xl md:text-6xl text-white font-black uppercase tracking-normal mb-6 leading-tight font-headline drop-shadow-md">
+                        OUR STORY: BUILT BY <span class="text-gradient">DMV SOCCER PARENTS</span>
+                    </h2>
+                    
+                    <div class="space-y-4 text-white/90 text-sm md:text-base font-light leading-relaxed font-body mb-8">
+                        <p>Dear DMV Soccer Families,</p>
+                        <p>When our daughter Morgan started competitive soccer, we were stunned by how fragmented and overwhelming the youth soccer landscape was for families. Between club practices, travel logistics, and tournament schedules, we quickly realized that clubs only handle one part of the equation.</p>
+                        <p>To truly help young athletes develop—and stay healthy, confident, and resilient—parents are left searching through word-of-mouth recommendations for technical coaches, speed and agility trainers, physical therapists, sports psychologists, and nutritionists.</p>
+                        <p>We built The Complete Player Hub to give parents and youth players direct, immediate access to a curated network of dedicated coaches, specialists, and training businesses across all 6 core pillars of player development—plus college recruitment specialists, NIL and branding coaches, and international tournament and training opportunities. Whether your athlete is building foundational movement, sharpening game IQ, recovering from an injury, or preparing for college showcases, CPH brings the entire ecosystem into one trusted place.</p>
+                        <p class="border-l-2 border-[#ff5a00] pl-4 text-white/95 my-4 bg-white/[0.02] py-2 rounded-r-xl font-normal">
+                            "Our goal is simple: to bring clarity, access, and structure to youth soccer so every player can develop into a complete athlete — from the inside out."
+                        </p>
+                    </div>
+                    
+                    <div class="flex items-center gap-6 pt-2 border-t border-white/10">
+                        <div>
+                            <div class="text-lg font-bold text-white font-poppins">Sol & Heather Salinas</div>
+                            <div class="text-xs text-[#ff5a00] font-mono uppercase tracking-wider font-semibold">Co-Founders, The Complete Player Hub</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SUBSTACK BLOG CAROUSEL SECTION -->
+<section class="paintbrush-segment py-24 px-4 md:px-8 relative z-10 bg-transparent" id="insights">
+<style>
+    .scrollbar-none::-webkit-scrollbar { display: none; }
+    .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+<div class="max-w-7xl mx-auto relative z-20">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+        <div>
+            <div class="flex items-center gap-3 mb-2">
+                <div class="text-xs font-mono text-[#ff5a00] uppercase tracking-[0.4em] font-semibold">STRAIGHT FROM OUR SUBSTACK</div>
+                <span id="substack-live-badge" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[9px] font-mono font-bold tracking-wider shadow-sm">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    LIVE FEED
+                </span>
+            </div>
+            <h2 class="text-5xl md:text-7xl text-white font-black uppercase tracking-normal mb-2 font-headline drop-shadow-lg">INSIGHTS FOR THE <span class="text-gradient">JOURNEY</span></h2>
+            <p class="text-sm text-white/90 max-w-xl font-light font-body drop-shadow-md">
+                Stories, guidance, and ideas on youth soccer development — straight from Sol & Heather's Substack publication.
+            </p>
+        </div>
+        
+        <div class="flex items-center gap-4 shrink-0">
+            <a href="https://thecompleteplayerhub.substack.com" target="_blank" rel="noopener noreferrer" class="font-button text-[11px] tracking-wider px-5 py-2.5 uppercase rounded-full border border-white/20 hover:bg-white/10 text-white transition-all magnetic-btn flex items-center gap-2">
+                <span class="material-symbols-outlined text-base text-[#ff5a00]">rss_feed</span>
+                <span>Visit Substack</span>
+            </a>
+            <div class="flex items-center gap-2">
+                <button id="insights-prev" class="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-white hover:border-white/40 transition-all select-none hover:bg-white/5 active:scale-95">
+                    <span class="material-symbols-outlined text-sm">chevron_left</span>
+                </button>
+                <button id="insights-next" class="w-11 h-11 rounded-full border border-white/20 flex items-center justify-center text-white/80 hover:text-white hover:border-white/40 transition-all select-none hover:bg-white/5 active:scale-95">
+                    <span class="material-symbols-outlined text-sm">chevron_right</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="relative w-full">
+        <div id="insights-track" class="flex gap-8 overflow-x-auto scrollbar-none snap-x snap-mandatory scroll-smooth pb-8 px-4 md:px-0">
+            <!-- Article 1: THE SCIENCE OF COMPRESSION: WH -->
+            <a href="https://thecompleteplayerhub.substack.com/p/the-science-of-compression-why-soccer" target="_blank" rel="noopener noreferrer" class="w-[320px] sm:w-[440px] md:w-[480px] h-[480px] sm:h-[540px] md:h-[600px] shrink-0 snap-start flex flex-col justify-between bg-white/[0.04] backdrop-blur-2xl border border-white/20 rounded-[32px] p-6 relative group/card hover:border-white/35 transition-all duration-500 shadow-xl block cursor-pointer guide-target"
+               data-guide-category="SUBSTACK // RECOVERY"
+               data-guide-title="THE SCIENCE OF COMPRESSION: WHY SOCCER PLAYERS SWEAR BY IT"
+               data-guide-insight="Why Pros Rely on Compression&#8212;and Why Youth Players Should Too"
+               data-guide-chips='["Read article", "Visit Substack"]'>
+                <div class="flex flex-col h-full justify-between">
+                    <div class="h-[280px] sm:h-[340px] md:h-[420px] bg-[#070b13] border border-white/10 rounded-[24px] relative overflow-hidden flex items-center justify-center group-hover/card:scale-[1.02] transition-transform duration-500">
+                        
+                        <div class="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 backdrop-blur-md text-[9px] font-mono font-bold tracking-wider text-emerald-400 uppercase flex items-center gap-1.5 shadow-lg">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                            LATEST POST
+                        </div>
+                        <img src="https://substackcdn.com/image/fetch/$s_!rTuz!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7b3c4a1b-d49a-451c-8b7f-edc88ec7956d_634x545.jpeg" alt="THE SCIENCE OF COMPRESSION: WHY SOCCER PLAYERS SWEAR BY IT" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-4">
+                        <span class="text-[10px] font-mono tracking-widest text-[#ff5a00] uppercase mb-1 block font-semibold">RECOVERY • Sep 24, 2026</span>
+                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-normal text-white font-headline leading-tight line-clamp-2">THE SCIENCE OF COMPRESSION: WHY SOCCER PLAYERS SWEAR BY IT</h3>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 2: Why Elite Players Supplement t -->
+            <a href="https://thecompleteplayerhub.substack.com/p/why-elite-players-supplement-their" target="_blank" rel="noopener noreferrer" class="w-[320px] sm:w-[440px] md:w-[480px] h-[480px] sm:h-[540px] md:h-[600px] shrink-0 snap-start flex flex-col justify-between bg-white/[0.04] backdrop-blur-2xl border border-white/20 rounded-[32px] p-6 relative group/card hover:border-white/35 transition-all duration-500 shadow-xl block cursor-pointer guide-target"
+               data-guide-category="SUBSTACK // DEVELOPMENT"
+               data-guide-title="Why Elite Players Supplement their Club Training: The Case for Private Technical Development"
+               data-guide-insight="Featuring Daniel Akinkoye &#8212; DMV private trainer and youth developer"
+               data-guide-chips='["Read article", "Visit Substack"]'>
+                <div class="flex flex-col h-full justify-between">
+                    <div class="h-[280px] sm:h-[340px] md:h-[420px] bg-[#070b13] border border-white/10 rounded-[24px] relative overflow-hidden flex items-center justify-center group-hover/card:scale-[1.02] transition-transform duration-500">
+                        
+                        <img src="https://substackcdn.com/image/fetch/$s_!3GbT!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4f1622b2-c985-4a7b-9c0c-462a17db8b2b_770x805.jpeg" alt="Why Elite Players Supplement their Club Training: The Case for Private Technical Development" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-4">
+                        <span class="text-[10px] font-mono tracking-widest text-emerald-400 uppercase mb-1 block font-semibold">DEVELOPMENT • Sep 08, 2026</span>
+                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-normal text-white font-headline leading-tight line-clamp-2">Why Elite Players Supplement their Club Training: The Case for Private Technical Development</h3>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 3: BEYOND THE STRETCH: The Benefi -->
+            <a href="https://thecompleteplayerhub.substack.com/p/beyond-the-stretch-the-benefits-of" target="_blank" rel="noopener noreferrer" class="w-[320px] sm:w-[440px] md:w-[480px] h-[480px] sm:h-[540px] md:h-[600px] shrink-0 snap-start flex flex-col justify-between bg-white/[0.04] backdrop-blur-2xl border border-white/20 rounded-[32px] p-6 relative group/card hover:border-white/35 transition-all duration-500 shadow-xl block cursor-pointer guide-target"
+               data-guide-category="SUBSTACK // MOBILITY"
+               data-guide-title="BEYOND THE STRETCH: The Benefits of Yoga for Soccer Players"
+               data-guide-insight="By Sol Salinas, Co-Founder of the Complete Player Hub"
+               data-guide-chips='["Read article", "Visit Substack"]'>
+                <div class="flex flex-col h-full justify-between">
+                    <div class="h-[280px] sm:h-[340px] md:h-[420px] bg-[#070b13] border border-white/10 rounded-[24px] relative overflow-hidden flex items-center justify-center group-hover/card:scale-[1.02] transition-transform duration-500">
+                        
+                        <img src="https://substackcdn.com/image/fetch/$s_!layj!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Ffe14be4c-9759-4edc-853f-acf7ad5ae8e7_5342x3170.jpeg" alt="BEYOND THE STRETCH: The Benefits of Yoga for Soccer Players" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-4">
+                        <span class="text-[10px] font-mono tracking-widest text-amber-400 uppercase mb-1 block font-semibold">MOBILITY • Aug 23, 2026</span>
+                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-normal text-white font-headline leading-tight line-clamp-2">BEYOND THE STRETCH: The Benefits of Yoga for Soccer Players</h3>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 4: Sleep: The Invisible Performan -->
+            <a href="https://thecompleteplayerhub.substack.com/p/sleep-the-invisible-performance-advantage" target="_blank" rel="noopener noreferrer" class="w-[320px] sm:w-[440px] md:w-[480px] h-[480px] sm:h-[540px] md:h-[600px] shrink-0 snap-start flex flex-col justify-between bg-white/[0.04] backdrop-blur-2xl border border-white/20 rounded-[32px] p-6 relative group/card hover:border-white/35 transition-all duration-500 shadow-xl block cursor-pointer guide-target"
+               data-guide-category="SUBSTACK // RECOVERY"
+               data-guide-title="Sleep: The Invisible Performance Advantage"
+               data-guide-insight="Why Sufficient Sleep is Vital for Elite Soccer Players"
+               data-guide-chips='["Read article", "Visit Substack"]'>
+                <div class="flex flex-col h-full justify-between">
+                    <div class="h-[280px] sm:h-[340px] md:h-[420px] bg-[#070b13] border border-white/10 rounded-[24px] relative overflow-hidden flex items-center justify-center group-hover/card:scale-[1.02] transition-transform duration-500">
+                        
+                        <img src="https://substackcdn.com/image/fetch/$s_!rlIS!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F4c46539a-f050-4a61-b6ae-9701b6407665_460x374.jpeg" alt="Sleep: The Invisible Performance Advantage" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-4">
+                        <span class="text-[10px] font-mono tracking-widest text-[#ff5a00] uppercase mb-1 block font-semibold">RECOVERY • Aug 12, 2026</span>
+                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-normal text-white font-headline leading-tight line-clamp-2">Sleep: The Invisible Performance Advantage</h3>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 5: What FCNE Taught Our Children  -->
+            <a href="https://thecompleteplayerhub.substack.com/p/what-fcne-taught-our-children-in" target="_blank" rel="noopener noreferrer" class="w-[320px] sm:w-[440px] md:w-[480px] h-[480px] sm:h-[540px] md:h-[600px] shrink-0 snap-start flex flex-col justify-between bg-white/[0.04] backdrop-blur-2xl border border-white/20 rounded-[32px] p-6 relative group/card hover:border-white/35 transition-all duration-500 shadow-xl block cursor-pointer guide-target"
+               data-guide-category="SUBSTACK // INTERNATIONAL"
+               data-guide-title="What FCNE Taught Our Children in Sweden: The Case for Playing Internationally"
+               data-guide-insight="On the road through Scandinavia with my daughter&#8217;s G14 FCNE squad, I saw how international competition can transform young players."
+               data-guide-chips='["Read article", "Visit Substack"]'>
+                <div class="flex flex-col h-full justify-between">
+                    <div class="h-[280px] sm:h-[340px] md:h-[420px] bg-[#070b13] border border-white/10 rounded-[24px] relative overflow-hidden flex items-center justify-center group-hover/card:scale-[1.02] transition-transform duration-500">
+                        
+                        <img src="https://substackcdn.com/image/fetch/$s_!Pp8q!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa8777f30-af5d-4969-953b-cfd9c7ce02c8_1122x1402.jpeg" alt="What FCNE Taught Our Children in Sweden: The Case for Playing Internationally" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-4">
+                        <span class="text-[10px] font-mono tracking-widest text-purple-400 uppercase mb-1 block font-semibold">INTERNATIONAL • Jul 31, 2026</span>
+                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-normal text-white font-headline leading-tight line-clamp-2">What FCNE Taught Our Children in Sweden: The Case for Playing Internationally</h3>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 6: The Global Coach Who Sees Amer -->
+            <a href="https://thecompleteplayerhub.substack.com/p/the-global-coach-who-sees-america" target="_blank" rel="noopener noreferrer" class="w-[320px] sm:w-[440px] md:w-[480px] h-[480px] sm:h-[540px] md:h-[600px] shrink-0 snap-start flex flex-col justify-between bg-white/[0.04] backdrop-blur-2xl border border-white/20 rounded-[32px] p-6 relative group/card hover:border-white/35 transition-all duration-500 shadow-xl block cursor-pointer guide-target"
+               data-guide-category="SUBSTACK // DEVELOPMENT"
+               data-guide-title="The Global Coach Who Sees America Clearly"
+               data-guide-insight="Portuguese football coach Fabio Ivan Barros has spent the last 20 years watching U.S. soccer from the inside. What he sees &#8212; and what he says needs to change &#8212; may surp..."
+               data-guide-chips='["Read article", "Visit Substack"]'>
+                <div class="flex flex-col h-full justify-between">
+                    <div class="h-[280px] sm:h-[340px] md:h-[420px] bg-[#070b13] border border-white/10 rounded-[24px] relative overflow-hidden flex items-center justify-center group-hover/card:scale-[1.02] transition-transform duration-500">
+                        
+                        <img src="https://substackcdn.com/image/fetch/$s_!ck0R!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fcb2c2ecc-5f12-4018-8fc6-acd88a49988d_1024x1021.jpeg" alt="The Global Coach Who Sees America Clearly" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-4">
+                        <span class="text-[10px] font-mono tracking-widest text-emerald-400 uppercase mb-1 block font-semibold">DEVELOPMENT • Jul 22, 2026</span>
+                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-normal text-white font-headline leading-tight line-clamp-2">The Global Coach Who Sees America Clearly</h3>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 7: The U.S. Still Doesn’t Build C -->
+            <a href="https://thecompleteplayerhub.substack.com/p/the-us-still-doesnt-build-complete" target="_blank" rel="noopener noreferrer" class="w-[320px] sm:w-[440px] md:w-[480px] h-[480px] sm:h-[540px] md:h-[600px] shrink-0 snap-start flex flex-col justify-between bg-white/[0.04] backdrop-blur-2xl border border-white/20 rounded-[32px] p-6 relative group/card hover:border-white/35 transition-all duration-500 shadow-xl block cursor-pointer guide-target"
+               data-guide-category="SUBSTACK // DEVELOPMENT"
+               data-guide-title="The U.S. Still Doesn’t Build Complete Players"
+               data-guide-insight="Why the U.S. Men&#8217;s World Cup loss once again exposes the structural flaws facing the U.S. soccer development system"
+               data-guide-chips='["Read article", "Visit Substack"]'>
+                <div class="flex flex-col h-full justify-between">
+                    <div class="h-[280px] sm:h-[340px] md:h-[420px] bg-[#070b13] border border-white/10 rounded-[24px] relative overflow-hidden flex items-center justify-center group-hover/card:scale-[1.02] transition-transform duration-500">
+                        
+                        <img src="https://substackcdn.com/image/fetch/$s_!xcYd!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F831fb997-927c-4ce5-b1aa-1eb17e60cd4f_474x328.webp" alt="The U.S. Still Doesn’t Build Complete Players" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-4">
+                        <span class="text-[10px] font-mono tracking-widest text-emerald-400 uppercase mb-1 block font-semibold">DEVELOPMENT • Jul 07, 2026</span>
+                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-normal text-white font-headline leading-tight line-clamp-2">The U.S. Still Doesn’t Build Complete Players</h3>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Article 8: The Three Lanes of American Yo -->
+            <a href="https://thecompleteplayerhub.substack.com/p/the-three-lanes-of-american-youth" target="_blank" rel="noopener noreferrer" class="w-[320px] sm:w-[440px] md:w-[480px] h-[480px] sm:h-[540px] md:h-[600px] shrink-0 snap-start flex flex-col justify-between bg-white/[0.04] backdrop-blur-2xl border border-white/20 rounded-[32px] p-6 relative group/card hover:border-white/35 transition-all duration-500 shadow-xl block cursor-pointer guide-target"
+               data-guide-category="SUBSTACK // DEVELOPMENT"
+               data-guide-title="The Three Lanes of American Youth Soccer"
+               data-guide-insight="Why Rec, Competitive Travel, and Elite Travel Each Offer a Different &#8212; and Equally Valid &#8212; Way to Love the Game."
+               data-guide-chips='["Read article", "Visit Substack"]'>
+                <div class="flex flex-col h-full justify-between">
+                    <div class="h-[280px] sm:h-[340px] md:h-[420px] bg-[#070b13] border border-white/10 rounded-[24px] relative overflow-hidden flex items-center justify-center group-hover/card:scale-[1.02] transition-transform duration-500">
+                        
+                        <img src="https://substackcdn.com/image/fetch/$s_!7zXi!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fecdc8438-e18c-4ea6-b748-c4338c904e76_576x384.png" alt="The Three Lanes of American Youth Soccer" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-4">
+                        <span class="text-[10px] font-mono tracking-widest text-emerald-400 uppercase mb-1 block font-semibold">DEVELOPMENT • Jun 30, 2026</span>
+                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-normal text-white font-headline leading-tight line-clamp-2">The Three Lanes of American Youth Soccer</h3>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+(function() {
+    const track = document.getElementById('insights-track');
+    const prev = document.getElementById('insights-prev');
+    const next = document.getElementById('insights-next');
+    if (!track) return;
+
+    if (prev && next) {
+        prev.addEventListener('click', () => {
+            const cardWidth = window.innerWidth < 640 ? 320 + 32 : (window.innerWidth < 768 ? 440 + 32 : 480 + 32);
+            track.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+        });
+
+        next.addEventListener('click', () => {
+            const cardWidth = window.innerWidth < 640 ? 320 + 32 : (window.innerWidth < 768 ? 440 + 32 : 480 + 32);
+            track.scrollBy({ left: cardWidth, behavior: 'smooth' });
+        });
+    }
+
+    // --- Dynamic Real-Time Substack Live Sync ---
+    async function loadLiveSubstack() {
+        try {
+            const res = await fetch('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fthecompleteplayerhub.substack.com%2Ffeed');
+            if (!res.ok) return;
+            const data = await res.json();
+            if (data.status !== 'ok' || !Array.isArray(data.items) || data.items.length === 0) return;
+
+            const getCategoryColor = (title, desc) => {
+                const combined = (title + ' ' + desc).toLowerCase();
+                if (/sleep|recovery|compression/.test(combined)) return ['RECOVERY', 'text-[#ff5a00]'];
+                if (/yoga|stretch|mobility|agility|fascial/.test(combined)) return ['MOBILITY', 'text-amber-400'];
+                if (/mental|mindset|anxiety|resilience|psychology/.test(combined)) return ['MENTAL IQ', 'text-cyan-400'];
+                if (/international|sweden|europe|gothia/.test(combined)) return ['INTERNATIONAL', 'text-purple-400'];
+                if (/built|found|mom|story|salinas/.test(combined)) return ['FOUNDING STORY', 'text-rose-400'];
+                return ['DEVELOPMENT', 'text-emerald-400'];
+            };
+
+            const formatDate = (dateStr) => {
+                try {
+                    const d = new Date(dateStr.replace(' ', 'T'));
+                    return d.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' });
+                } catch (e) {
+                    return dateStr;
+                }
+            };
+
+            // Render live cards for the first 8 posts
+            const html = data.items.slice(0, 8).map((post, idx) => {
+                const descClean = (post.description || '').replace(/<[^>]*>/g, '').trim().slice(0, 180);
+                const [cat, colorCls] = getCategoryColor(post.title, descClean);
+                const img = post.thumbnail || (post.enclosure && post.enclosure.link) || '';
+                const date = formatDate(post.pubDate);
+                const isLatest = idx === 0;
+
+                return `
+            <a href="${post.link}" target="_blank" rel="noopener noreferrer" class="w-[320px] sm:w-[440px] md:w-[480px] h-[480px] sm:h-[540px] md:h-[600px] shrink-0 snap-start flex flex-col justify-between bg-white/[0.04] backdrop-blur-2xl border border-white/20 rounded-[32px] p-6 relative group/card hover:border-white/35 transition-all duration-500 shadow-xl block cursor-pointer guide-target"
+               data-guide-category="SUBSTACK // ${cat}"
+               data-guide-title="${post.title.replace(/"/g, '&quot;')}"
+               data-guide-insight="${descClean.replace(/"/g, '&quot;')}"
+               data-guide-chips='["Read article", "Visit Substack"]'>
+                <div class="flex flex-col h-full justify-between">
+                    <div class="h-[280px] sm:h-[340px] md:h-[420px] bg-[#070b13] border border-white/10 rounded-[24px] relative overflow-hidden flex items-center justify-center group-hover/card:scale-[1.02] transition-transform duration-500">
+                        ${isLatest ? `
+                        <div class="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 backdrop-blur-md text-[9px] font-mono font-bold tracking-wider text-emerald-400 uppercase flex items-center gap-1.5 shadow-lg">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                            LATEST POST
+                        </div>` : ''}
+                        <img src="${img}" alt="${post.title.replace(/"/g, '&quot;')}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="mt-4">
+                        <span class="text-[10px] font-mono tracking-widest ${colorCls} uppercase mb-1 block font-semibold">${cat} • ${date}</span>
+                        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-normal text-white font-headline leading-tight line-clamp-2">${post.title}</h3>
+                    </div>
+                </div>
+            </a>`;
+            }).join('');
+
+            track.innerHTML = html;
+        } catch (e) {
+            console.warn('Real-time Substack feed sync using static fallback:', e);
+        }
+    }
+
+    loadLiveSubstack();
+})();
+</script>
+</section>
+
+<!-- SEGMENT 7: WAITLIST SECTION -->
+<section id="waitlist" class="paintbrush-segment py-24 px-4 md:px-8 relative z-10 bg-transparent">
+<div class="max-w-6xl mx-auto relative z-20">
+<div class="p-[1px] relative overflow-hidden bg-gradient-to-br from-white/15 via-white/5 to-transparent rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.85)]">
+<div class="flex flex-col items-center justify-center rounded-3xl overflow-hidden bg-white/[0.03] backdrop-blur-2xl border border-white/15 py-12 px-6 text-center guide-target"
+     data-guide-category="LAUNCH // FALL 2026"
+     data-guide-title="Fall 2026 Pre-Launch Waitlist"
+     data-guide-insight="Pre-launch onboarding is open for DMV parents, coaches, and service providers. Founding providers receive 4 full months free after the platform opens to parents."
+     data-guide-chips='["Join as Parent", "Join as Coach", "Join as Service Provider", "Ask CPH Concierge"]'>
+<div class="w-full max-w-xl flex flex-col justify-center items-center relative z-20">
+    <div class="mb-8">
+        <span class="text-[10px] font-mono tracking-[0.4em] text-white/60 uppercase mb-4 block">Coming Soon</span>
+        <h2 class="text-5xl md:text-7xl text-white font-black uppercase tracking-normal mb-6 leading-none font-headline drop-shadow-lg">
+            LAUNCHING <br><span class="text-white">FALL 2026</span>
+        </h2>
+        <p class="text-sm text-white/80 max-w-md mx-auto leading-relaxed font-light font-body">
+            We are building the ultimate curated ecosystem connecting DMV youth soccer families with dedicated coaches, specialists, and training businesses.
+        </p>
+    </div>
+    
+    <div class="grid grid-cols-4 gap-4 w-full max-w-md mx-auto text-center mb-10">
+        <div class="bg-white/[0.08] backdrop-blur-xl border border-white/20 rounded-2xl p-4 shadow-lg">
+            <div id="countdown-days" class="text-2xl sm:text-3xl font-bold text-white font-poppins">00</div>
+            <div class="text-[9px] font-mono text-white/50 uppercase tracking-widest mt-1">Days</div>
+        </div>
+        <div class="bg-white/[0.08] backdrop-blur-xl border border-white/20 rounded-2xl p-4 shadow-lg">
+            <div id="countdown-hours" class="text-2xl sm:text-3xl font-bold text-white font-poppins">00</div>
+            <div class="text-[9px] font-mono text-white/50 uppercase tracking-widest mt-1">Hours</div>
+        </div>
+        <div class="bg-white/[0.08] backdrop-blur-xl border border-white/20 rounded-2xl p-4 shadow-lg">
+            <div id="countdown-minutes" class="text-2xl sm:text-3xl font-bold text-white font-poppins">00</div>
+            <div class="text-[9px] font-mono text-white/50 uppercase tracking-widest mt-1">Mins</div>
+        </div>
+        <div class="bg-white/[0.08] backdrop-blur-xl border border-white/20 rounded-2xl p-4 shadow-lg">
+            <div id="countdown-seconds" class="text-2xl sm:text-3xl font-bold text-white font-poppins">00</div>
+            <div class="text-[9px] font-mono text-white/50 uppercase tracking-widest mt-1">Secs</div>
+        </div>
+    </div>
+
+    <!-- Direct Pre-Launch Role Selection Bar (Parent | Coach | Service Provider | Other) -->
+    <div class="w-full max-w-lg mx-auto pt-6 border-t border-white/10">
+        <div class="text-[11px] font-mono uppercase tracking-widest text-[#ff5a00] mb-3 font-semibold">Join Pre-Launch Waitlist &mdash; I Am A...</div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+            <button type="button" data-waitlist-role="Parent" class="cph-waitlist-role-trigger py-2.5 px-3 rounded-xl border border-white/20 bg-white/[0.04] hover:bg-[#ff5a00] hover:border-[#ff5a00] hover:text-black text-white text-xs font-semibold transition-all cursor-pointer">
+                Parent
+            </button>
+            <button type="button" data-waitlist-role="Coach" class="cph-waitlist-role-trigger py-2.5 px-3 rounded-xl border border-white/20 bg-white/[0.04] hover:bg-[#ff5a00] hover:border-[#ff5a00] hover:text-black text-white text-xs font-semibold transition-all cursor-pointer">
+                Coach
+            </button>
+            <button type="button" data-waitlist-role="Service Provider" class="cph-waitlist-role-trigger py-2.5 px-3 rounded-xl border border-white/20 bg-white/[0.04] hover:bg-[#ff5a00] hover:border-[#ff5a00] hover:text-black text-white text-xs font-semibold transition-all cursor-pointer">
+                Service Provider
+            </button>
+            <button type="button" data-waitlist-role="Other" class="cph-waitlist-role-trigger py-2.5 px-3 rounded-xl border border-white/20 bg-white/[0.04] hover:bg-[#ff5a00] hover:border-[#ff5a00] hover:text-black text-white text-xs font-semibold transition-all cursor-pointer">
+                Other
+            </button>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+(function() {
+    // Target November 15, 2026 (Fall 2026 Launch Window)
+    const launchDate = new Date("Nov 15, 2026 00:00:00").getTime();
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const diff = launchDate - now;
+        if (diff < 0) return;
+        document.getElementById("countdown-days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+        document.getElementById("countdown-hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+        document.getElementById("countdown-minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+        document.getElementById("countdown-seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+})();
+</script>
+</section>
+
+<!-- SEGMENT 8: CONTACT US SECTION -->
+<section id="contact" class="paintbrush-segment py-24 px-4 md:px-8 relative z-10 bg-transparent">
+    <div class="max-w-6xl mx-auto relative z-20">
+        <div class="p-[1px] relative overflow-hidden bg-gradient-to-br from-white/15 via-white/5 to-transparent rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.85)]">
+            <div class="rounded-3xl overflow-hidden bg-white/[0.03] backdrop-blur-2xl border border-white/15 p-8 sm:p-14 guide-target"
+                 data-guide-category="CONNECT // INQUIRIES"
+                 data-guide-title="Contact Complete Player Hub"
+                 data-guide-insight="Direct channel for parents, coaches, service providers, and partners to contact Sol and Heather Salinas for customized guidance, academy partnerships, and onboarding."
+                 data-guide-chips='["Ask about coaching", "Founding Provider inquiry", "Parent guidance"]'>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                    
+                    <!-- Left Column: Context & Direct Info -->
+                    <div class="lg:col-span-5 flex flex-col justify-between h-full space-y-8">
+                        <div>
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="w-2 h-2 rounded-full bg-[#ff5a00]"></span>
+                                <div class="text-xs font-mono text-[#ff5a00] uppercase tracking-[0.4em] font-semibold">GET IN TOUCH</div>
+                            </div>
+                            <h2 class="text-4xl sm:text-5xl md:text-6xl text-white font-black uppercase tracking-normal mb-4 font-headline leading-tight drop-shadow-lg">
+                                CONNECT WITH <span class="text-gradient">THE HUB</span>
+                            </h2>
+                            <p class="text-sm sm:text-base text-white/80 leading-relaxed font-light font-body">
+                                Have questions about youth development, Founding Provider onboarding, or training business partnerships? Drop us a line. We read and respond to every note.
+                            </p>
+                        </div>
+
+                        <!-- Direct Contact Cards -->
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-all">
+                                <div class="w-10 h-10 rounded-xl bg-[#ff5a00]/10 border border-[#ff5a00]/30 flex items-center justify-center shrink-0 text-[#ff5a00]">
+                                    <span class="material-symbols-outlined text-lg">mail</span>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] font-mono uppercase tracking-widest text-white/50 mb-0.5">Direct Inquiries</div>
+                                    <a href="mailto:sol@thecompleteplayerhub.com" class="text-sm font-semibold text-white hover:text-[#ff5a00] transition-colors">sol@thecompleteplayerhub.com</a>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-all">
+                                <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center shrink-0 text-purple-400">
+                                    <span class="material-symbols-outlined text-lg">location_on</span>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] font-mono uppercase tracking-widest text-white/50 mb-0.5">Primary Territory</div>
+                                    <div class="text-sm font-semibold text-white">Servicing the Washington D.C. Metro Area (DMV)</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-all">
+                                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shrink-0 text-emerald-400">
+                                    <span class="material-symbols-outlined text-lg">verified</span>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] font-mono uppercase tracking-widest text-white/50 mb-0.5">Response Protocol</div>
+                                    <div class="text-sm font-semibold text-white">Personal welcome note &amp; response within 24 hours</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Substack Link -->
+                        <div class="pt-2">
+                            <a href="https://thecompleteplayerhub.substack.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-xs font-mono tracking-wider text-white/60 hover:text-white transition-colors">
+                                <span class="material-symbols-outlined text-sm text-[#ff5a00]">rss_feed</span>
+                                <span>Read Sol &amp; Heather's weekly dispatch on Substack &rarr;</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Interactive Contact Form -->
+                    <div class="lg:col-span-7 bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8 shadow-2xl relative">
+                        <form id="cph-contact-form" method="POST" action="/api/cph/contact" class="space-y-6">
+                            
+                            <!-- Role Selection Chips (Parent | Coach | Service Provider | Other) -->
+                            <fieldset class="space-y-2 border-0 p-0 m-0">
+                                <legend class="text-[11px] font-mono uppercase tracking-widest text-white/60 block font-semibold mb-2">I am a...</legend>
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="contact_role" value="Parent" class="peer sr-only" checked />
+                                        <div class="text-center py-2.5 px-3 rounded-xl border border-white/15 bg-white/[0.02] text-white/70 text-xs font-medium peer-checked:bg-[#ff5a00] peer-checked:border-[#ff5a00] peer-checked:text-black peer-checked:font-bold transition-all select-none">
+                                            Parent
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="contact_role" value="Coach" class="peer sr-only" />
+                                        <div class="text-center py-2.5 px-3 rounded-xl border border-white/15 bg-white/[0.02] text-white/70 text-xs font-medium peer-checked:bg-[#ff5a00] peer-checked:border-[#ff5a00] peer-checked:text-black peer-checked:font-bold transition-all select-none">
+                                            Coach
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="contact_role" value="Service Provider" class="peer sr-only" />
+                                        <div class="text-center py-2.5 px-3 rounded-xl border border-white/15 bg-white/[0.02] text-white/70 text-xs font-medium peer-checked:bg-[#ff5a00] peer-checked:border-[#ff5a00] peer-checked:text-black peer-checked:font-bold transition-all select-none">
+                                            Service Provider
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input type="radio" name="contact_role" value="Other" class="peer sr-only" />
+                                        <div class="text-center py-2.5 px-3 rounded-xl border border-white/15 bg-white/[0.02] text-white/70 text-xs font-medium peer-checked:bg-[#ff5a00] peer-checked:border-[#ff5a00] peer-checked:text-black peer-checked:font-bold transition-all select-none">
+                                            Other
+                                        </div>
+                                    </label>
+                                </div>
+                            </fieldset>
+
+                            <!-- Name Field -->
+                            <div class="space-y-2">
+                                <label for="contact-name" class="text-[11px] font-mono uppercase tracking-widest text-white/60 block font-semibold">Your Full Name <span class="text-[#ff5a00]">*</span></label>
+                                <div class="relative">
+                                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-white/30 text-lg pointer-events-none">person</span>
+                                    <input type="text" id="contact-name" name="name" required placeholder="Alex Morgan" 
+                                           class="w-full bg-black/60 border border-white/15 rounded-xl pl-12 pr-4 py-3.5 text-sm text-white placeholder-white/25 focus:border-[#ff5a00] focus:ring-1 focus:ring-[#ff5a00] outline-none transition-all font-body" />
+                                </div>
+                            </div>
+
+                            <!-- Email Field -->
+                            <div class="space-y-2">
+                                <label for="contact-email" class="text-[11px] font-mono uppercase tracking-widest text-white/60 block font-semibold">Email Address <span class="text-[#ff5a00]">*</span></label>
+                                <div class="relative">
+                                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-white/30 text-lg pointer-events-none">mail</span>
+                                    <input type="email" id="contact-email" name="email" required placeholder="alex@domain.com" 
+                                           class="w-full bg-black/60 border border-white/15 rounded-xl pl-12 pr-4 py-3.5 text-sm text-white placeholder-white/25 focus:border-[#ff5a00] focus:ring-1 focus:ring-[#ff5a00] outline-none transition-all font-body" />
+                                </div>
+                            </div>
+
+                            <!-- Message Field -->
+                            <div class="space-y-2">
+                                <label for="contact-message" class="text-[11px] font-mono uppercase tracking-widest text-white/60 block font-semibold">Message / Inquiry <span class="text-[#ff5a00]">*</span></label>
+                                <div class="relative">
+                                    <textarea id="contact-message" name="message" rows="4" required placeholder="Tell us about your player, coaching/provider services, or partnership inquiry..."
+                                              class="w-full bg-black/60 border border-white/15 rounded-xl p-4 text-sm text-white placeholder-white/25 focus:border-[#ff5a00] focus:ring-1 focus:ring-[#ff5a00] outline-none transition-all font-body"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" id="contact-submit-btn" 
+                                    class="w-full bg-gradient-to-r from-[#ff5a00] to-[#ffa500] hover:shadow-[0_0_25px_rgba(255,90,0,0.6)] text-black font-bold text-xs uppercase tracking-widest py-4 px-6 rounded-xl transition-all duration-300 transform active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer">
+                                <span>Send Message</span>
+                                <span class="material-symbols-outlined text-sm font-bold">arrow_forward</span>
+                            </button>
+
+                            <!-- Success / Feedback Container -->
+                            <div id="contact-success" role="status" aria-live="polite" class="hidden p-5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono space-y-1.5 text-center animate-fade-in">
+                                <div class="flex items-center justify-center gap-2 font-bold text-sm">
+                                    <span class="material-symbols-outlined text-base">check_circle</span>
+                                    <span>Message Dispatched &amp; Welcome Note Sent</span>
+                                </div>
+                                <p class="text-white/70 text-[11px] font-body">Thank you for connecting with The Complete Player Hub! We've sent a welcome note from Sol &amp; Heather to your inbox and will follow up personally within 24 hours.</p>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+(function() {
+    const form = document.getElementById('cph-contact-form');
+    const successMsg = document.getElementById('contact-success');
+    const submitBtn = document.getElementById('contact-submit-btn');
+    if (!form || !successMsg || !submitBtn) return;
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const role = form.querySelector('input[name="contact_role"]:checked')?.value || 'General';
+        const name = document.getElementById('contact-name').value.trim();
+        const email = document.getElementById('contact-email').value.trim();
+        const message = document.getElementById('contact-message').value.trim();
+
+        if (!name || !email || !message) return;
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<span>Sending...</span><span class="w-3 h-3 rounded-full border-2 border-black border-t-transparent animate-spin ml-2"></span>`;
+
+        const submission = {
+            role,
+            name,
+            email,
+            message,
+            timestamp: new Date().toISOString()
+        };
+
+        try {
+            const existing = JSON.parse(localStorage.getItem('cph_contact_inquiries') || '[]');
+            existing.push(submission);
+            localStorage.setItem('cph_contact_inquiries', JSON.stringify(existing));
+        } catch(err) {
+            console.error('Storage error:', err);
+        }
+
+        // Direct Supabase Ingestion (Isolated CPH Database)
+        try {
+            const cfg = window.CPH_CONFIG || window.CPH_SUPABASE_CONFIG || {};
+            const sbUrl = (cfg.supabaseUrl || window.CPH_SUPABASE_URL || '').replace(/\/+$/, '');
+            const sbKey = cfg.supabaseAnonKey || window.CPH_SUPABASE_ANON_KEY || '';
+            if (sbUrl && sbKey) {
+                fetch(`${sbUrl}/rest/v1/cph_inquiries`, {
+                    method: 'POST',
+                    headers: {
+                        'apikey': sbKey,
+                        'Authorization': `Bearer ${sbKey}`,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify({
+                        role: submission.role || 'General',
+                        name: submission.name,
+                        email: submission.email,
+                        message: submission.message,
+                        source: 'contact_form'
+                    })
+                }).then(r => {
+                    if (r.ok) console.log('[CPH Contact] Inquiry stored in Supabase cph_inquiries');
+                }).catch(err => console.warn('[CPH Contact] Supabase ingestion error:', err));
+            }
+        } catch(e) {
+            console.warn('[CPH Contact] Supabase connection exception:', e);
+        }
+
+        // Synchronize with backend API if online (with automatic fallback to engine.m3sh.in)
+        (async () => {
+            for (const endpoint of ['/api/cph/contact', 'https://engine.m3sh.in/api/cph/contact', 'http://127.0.0.1:8000/api/cph/contact']) {
+                try {
+                    const r = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(submission)
+                    });
+                    if (r.ok) {
+                        console.log('[CPH Contact] Inquiry synced to backend:', endpoint);
+                        break;
+                    }
+                } catch(e) {}
+            }
+        })();
+
+        try {
+            window.dispatchEvent(new CustomEvent('cph:contact_inquiry', { detail: submission }));
+        } catch(e) {}
+
+        setTimeout(() => {
+            submitBtn.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+            form.reset();
+        }, 500);
+    });
+})();
+</script>
+</main>
+
+<!-- HIGH-VISIBILITY FLOATING CHATBOT TRIGGER BUTTON -->
+<div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2 group pointer-events-auto">
+    <div class="bg-black/95 backdrop-blur-md border border-[#ff5a00]/40 text-white text-xs px-3.5 py-1.5 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.8)] flex items-center gap-2 animate-bounce select-none">
+        <span class="w-2 h-2 rounded-full bg-[#ff5a00] animate-ping"></span>
+        <span class="font-medium">Have questions? Ask CPH Tour Guide AI!</span>
+    </div>
+
+    <div class="relative">
+        <div class="absolute -inset-1 rounded-full bg-[#ff5a00] opacity-75 blur animate-pulse"></div>
+        <button id="chatbot-bubble" class="relative w-16 h-16 rounded-full bg-gradient-to-tr from-[#ff5a00] to-[#ffa500] flex items-center justify-center shadow-[0_0_30px_rgba(255,90,0,0.7)] hover:scale-110 transition-all duration-300 cursor-pointer pointer-events-auto">
+            <span class="material-symbols-outlined text-3xl text-black font-bold">chat</span>
+            <div class="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-black"></div>
+        </button>
+    </div>
+</div>
+
+<!-- FOOTER WITH ZERO BORDER LINE -->
+<footer class="bg-black w-full py-8 relative z-10 border-t border-white/5">
+<div class="flex flex-row justify-between items-center px-grid-margin w-full max-w-7xl mx-auto">
+    <div class="flex items-center gap-6">
+        <div class="text-lg font-bold uppercase tracking-[0.2em] text-white font-poppins">
+            CPH
+        </div>
+        <a href="#contact" class="text-xs text-white/50 hover:text-[#ff5a00] transition-colors uppercase font-mono tracking-wider">Contact Us</a>
+    </div>
+    <div class="text-[9px] font-mono tracking-[0.25em] text-white/30 uppercase">
+        &copy; 2026 CPH. ALL RIGHTS RESERVED.
+    </div>
+</div>
+</footer>
+
+<script type="text/javascript">
+    const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-revealed');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+    const magneticElements = document.querySelectorAll('.magnetic-btn');
+    magneticElements.forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+        btn.addEventListener('mouseleave', () => { btn.style.transform = 'translate(0px, 0px)'; });
+    });
+
+    (function() {
+        const canvas = document.getElementById('device-canvas');
+        if (!canvas) return;
+        let ticking = false;
+        function updateCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            const start = windowHeight;
+            const end = 80;
+            let progress = (start - rect.top) / (start - end);
+            progress = Math.max(0, Math.min(1, progress));
+            const transitionLimit = 0.78;
+            const activeProgress = Math.min(1, progress / transitionLimit);
+            const eased = 1 - Math.pow(1 - activeProgress, 3);
+            const screenW = window.innerWidth;
+            const containerW = Math.min(1280, screenW - (screenW < 768 ? 32 : 64));
+            const targetScale = screenW / containerW;
+            const scale = 0.5 + ((targetScale - 0.5) * eased);
+            const translateY = 200 * (1 - eased); 
+            const borderRadius = 56 - (32 * eased);
+            canvas.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+            canvas.style.borderRadius = `${borderRadius}px`;
+        }
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => { updateCanvas(); ticking = false; });
+                ticking = true;
+            }
+        }, { passive: true });
+        updateCanvas();
+    })();
+</script>
+
+<!-- TIGHT & PRECISE PAINTBRUSH SCRIPT WITH STRICT MASK CLEARING AT TOP AND BOTTOM -->
+<script type="text/javascript">
+(function() {
+    const canvas = document.getElementById('video-trail-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const video = document.getElementById('trail-video');
+    const segments = document.querySelectorAll('.paintbrush-segment');
+    const heroSeg = document.getElementById('hero-segment');
+    const deviceSeg = document.getElementById('device-segment');
+    if (!video || segments.length === 0) return;
+
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    const maskCanvas = document.createElement('canvas');
+    const maskCtx = maskCanvas.getContext('2d');
+    maskCanvas.width = width;
+    maskCanvas.height = height;
+
+    window.addEventListener('resize', () => {
+        const temp = document.createElement('canvas');
+        temp.width = maskCanvas.width;
+        temp.height = maskCanvas.height;
+        const tempCtx = temp.getContext('2d');
+        tempCtx.drawImage(maskCanvas, 0, 0);
+
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+
+        maskCanvas.width = width;
+        maskCanvas.height = height;
+        maskCtx.drawImage(temp, 0, 0);
+    });
+
+    const BRUSH_RADIUS = 80;
+    let lastX = null;
+    let lastY = null;
+    let paintedAny = false;
+
+    function drawBrush(x, y) {
+        const r = BRUSH_RADIUS;
+        const grad = maskCtx.createRadialGradient(x, y, 0, x, y, r);
+        grad.addColorStop(0, 'rgba(0, 0, 0, 1.0)');
+        grad.addColorStop(0.5, 'rgba(0, 0, 0, 0.8)');
+        grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+        maskCtx.fillStyle = grad;
+        maskCtx.beginPath();
+        maskCtx.arc(x, y, r, 0, Math.PI * 2);
+        maskCtx.fill();
+        paintedAny = true;
+    }
+
+    function isOverExcludedSegment(x, y) {
+        if (heroSeg) {
+            const hr = heroSeg.getBoundingClientRect();
+            if (y <= hr.bottom + 20) return true;
+        }
+        if (deviceSeg) {
+            const dr = deviceSeg.getBoundingClientRect();
+            if (y >= dr.top - 20 && y <= dr.bottom + 20) return true;
+        }
+        // Exclude bottom edge (prevent bottom edge paint line)
+        if (y >= window.innerHeight - 40) return true;
+        return false;
+    }
+
+    document.addEventListener('mousemove', (e) => {
+        if (isOverExcludedSegment(e.clientX, e.clientY)) {
+            lastX = null;
+            lastY = null;
+            return;
+        }
+
+        let isInsidePaintableSegment = false;
+        segments.forEach(sec => {
+            const rect = sec.getBoundingClientRect();
+            if (e.clientX >= rect.left && e.clientX <= rect.right &&
+                e.clientY >= rect.top - 10 && e.clientY <= rect.bottom - 40) {
+                isInsidePaintableSegment = true;
+            }
+        });
+
+        if (isInsidePaintableSegment) {
+            drawBrush(e.clientX, e.clientY);
+
+            if (lastX !== null && lastY !== null) {
+                const dist = Math.hypot(e.clientX - lastX, e.clientY - lastY);
+                const steps = Math.min(Math.floor(dist / 6), 12);
+                for (let i = 1; i <= steps; i++) {
+                    const t = i / steps;
+                    const interpolatedY = lastY + (e.clientY - lastY) * t;
+                    if (!isOverExcludedSegment(lastX + (e.clientX - lastX) * t, interpolatedY)) {
+                        drawBrush(
+                            lastX + (e.clientX - lastX) * t,
+                            interpolatedY
+                        );
+                    }
+                }
+            }
+
+            lastX = e.clientX;
+            lastY = e.clientY;
+
+            if (video.paused) {
+                video.play().catch(() => {});
+            }
+        } else {
+            lastX = null;
+            lastY = null;
+        }
+    });
+
+    function tick() {
+        requestAnimationFrame(tick);
+        ctx.clearRect(0, 0, width, height);
+
+        if (!paintedAny) return;
+
+        // Strict mask clear at top scene
+        if (heroSeg) {
+            const hr = heroSeg.getBoundingClientRect();
+            if (hr.bottom > 0) {
+                maskCtx.clearRect(0, 0, width, hr.bottom + 20);
+            }
+        }
+
+        // Strict mask clear at bottom edge (clears any bottom paint line)
+        maskCtx.clearRect(0, height - 40, width, 40);
+
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.drawImage(maskCanvas, 0, 0);
+
+        ctx.globalCompositeOperation = 'source-in';
+
+        if (video.readyState >= 2) {
+            const videoRatio = video.videoWidth / video.videoHeight;
+            const canvasRatio = width / height;
+            let drawWidth, drawHeight, xStart, yStart;
+
+            if (canvasRatio > videoRatio) {
+                drawWidth = width;
+                drawHeight = width / videoRatio;
+                xStart = 0;
+                yStart = (height - drawHeight) / 2;
+            } else {
+                drawWidth = height * videoRatio;
+                drawHeight = height;
+                xStart = (width - drawWidth) / 2;
+                yStart = 0;
+            }
+
+            ctx.drawImage(video, xStart, yStart, drawWidth, drawHeight);
+        }
+
+        ctx.globalCompositeOperation = 'source-over';
+    }
+
+    requestAnimationFrame(tick);
+})();
+</script>
+
+<!-- Video Lightbox Modal -->
+<div id="video-modal" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500">
+    <button id="modal-close" class="absolute top-6 right-6 w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-white/30 transition-all select-none hover:bg-white/5 active:scale-95 z-50">
+        <span class="material-symbols-outlined text-sm">close</span>
+    </button>
+    <div class="relative h-[88vh] max-h-[850px] aspect-[9/16] max-w-[92vw] flex items-center justify-center rounded-[32px] overflow-hidden border border-white/20 shadow-[0_25px_80px_rgba(0,0,0,0.9),0_0_50px_rgba(255,90,0,0.2)] bg-black">
+        <video id="modal-video" src="./design/cph_intro_video_vertical.mp4" playsinline controls class="w-full h-full object-cover rounded-[32px] bg-black"></video>
+    </div>
+</div>
+
+<script type="text/javascript">
+(function() {
+    const deviceCanvas = document.getElementById('device-canvas');
+    const playCursor = document.getElementById('play-intro-cursor');
+    const videoModal = document.getElementById('video-modal');
+    const modalVideo = document.getElementById('modal-video');
+    const modalClose = document.getElementById('modal-close');
+
+    if (!deviceCanvas || !playCursor || !videoModal || !modalVideo || !modalClose) return;
+
+    deviceCanvas.addEventListener('mousemove', (e) => {
+        const rect = deviceCanvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        playCursor.style.left = `${x}px`;
+        playCursor.style.top = `${y}px`;
+    });
+
+    deviceCanvas.addEventListener('mouseenter', () => {
+        playCursor.style.opacity = '1';
+        deviceCanvas.style.cursor = 'none';
+    });
+
+    deviceCanvas.addEventListener('mouseleave', () => {
+        playCursor.style.opacity = '0';
+        deviceCanvas.style.cursor = 'default';
+    });
+
+    deviceCanvas.addEventListener('click', (e) => {
+        if (e.target.closest('.absolute.top-4')) return;
+        videoModal.classList.remove('opacity-0', 'pointer-events-none');
+        modalVideo.play().catch(() => {});
+    });
+
+    const closeModal = () => {
+        videoModal.classList.add('opacity-0', 'pointer-events-none');
+        modalVideo.pause();
+        modalVideo.currentTime = 0;
+    };
+
+    modalClose.addEventListener('click', closeModal);
+    videoModal.addEventListener('click', (e) => {
+        if (e.target === videoModal) closeModal();
+    });
+})();
+</script>
+<script src="./chatbot/cph_bot_widget.js" defer></script>
+</body></html>
